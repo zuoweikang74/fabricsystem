@@ -2,16 +2,16 @@
 
 namespace app\api\controller;
 
-//面料颜色类
-class Color extends Safe {
+//特殊处理类
+class Deal extends Safe {
 
-    //获取所有color
+    //获取所有特殊处理
     public function index() {
-        $list = db('Fssfabriccolor')->where('status', '1')->field('id,name,colorv,url')->order('id desc')->select();
+        $list = db('Fssfabricdeal')->where('status', '1')->field('id,name,url')->order('id desc')->select();
         header("Content-type: text/xml; charset=utf-8");
         $xmlstring = new \SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><xml />');
         foreach ($list as $value) {
-            $xmlapplist = $xmlstring->addchild('Color');
+            $xmlapplist = $xmlstring->addchild('Deal');
             $xmlapplist->addAttribute('id', $value['id']);
             $xmlapplist->addAttribute('name', $value['name']);
             $xmlapplist->addAttribute('url', $value['url']);
@@ -19,11 +19,11 @@ class Color extends Safe {
         exit($xmlstring->asxml());
     }
 
-    //根据颜色ID获取面料信息	
+    //根据特殊处理ID获取面料信息	
     public function getMlsById() {
-        $color = \app\api\model\Fssfabriccolor::get(input('post.id'));
-        if ($color) {
-            $mianliaos = $color->fssmaterial()
+        $deal = \app\api\model\Fssfabricdeal::get(input('post.id'));
+        if ($deal) {
+            $mianliaos = $deal->fssmaterial()
                     ->field('id,name,mno,thumb,url,price,zworganization,weight,element,larghezza,weavemode,apply_season,gender,release_season')
                     ->paginate();
             if ($mianliaos->total() > 0) {
@@ -52,11 +52,11 @@ class Color extends Safe {
         }
     }
 
-    //根据颜色ID获取面料关联信息
+    //根据特殊处理ID获取面料关联信息
     public function getReMlsById() {
-        $color = \app\api\model\Fssfabriccolor::get(input('post.id'));
-        if ($color) {
-            $mianliao_ids = $color->fssmaterial()->field('id')->paginate();
+        $deal = \app\api\model\Fssfabricdeal::get(input('post.id'));
+        if ($deal) {
+            $mianliao_ids = $deal->fssmaterial()->field('id')->paginate();
             if ($mianliao_ids->total() > 0) {
                 header("Content-type: text/xml; charset=utf-8");
                 $xmlstring = new \SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><xml />');

@@ -6,9 +6,9 @@ namespace app\api\controller;
 class Safe extends \think\Controller {
 
     public function _initialize() {
-        $phoneNum = input('pn');
-        $onlyCode = input('wym');
-        $user_id = input('uid');
+        $phoneNum = input('post.pn');
+        $onlyCode = input('post.wym');
+        $user_id = input('post.uid');
         if (empty($phoneNum) || empty($onlyCode) || empty($user_id)) {
             exit("-1"); //非法访问！
         }

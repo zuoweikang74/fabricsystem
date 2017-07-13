@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:86:"E:\soft\phpstudy\WWW\fuzhuanggaoding\public/../application/admin\view\index\index.html";i:1499396660;s:86:"E:\soft\phpstudy\WWW\fuzhuanggaoding\public/../application/admin\view\public\meta.html";i:1499492496;s:88:"E:\soft\phpstudy\WWW\fuzhuanggaoding\public/../application/admin\view\public\header.html";i:1497597138;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:86:"E:\soft\phpstudy\WWW\fuzhuanggaoding\public/../application/admin\view\index\index.html";i:1499396660;s:86:"E:\soft\phpstudy\WWW\fuzhuanggaoding\public/../application/admin\view\public\meta.html";i:1499850671;s:88:"E:\soft\phpstudy\WWW\fuzhuanggaoding\public/../application/admin\view\public\header.html";i:1497597138;}*/ ?>
 <!DOCTYPE html>
 <html lang='en'>
   <head>
@@ -30,8 +30,8 @@
         position:relative;
     }
     #loc_img{
-    	max-width:500px;
-    	max-height:300px;    	
+        max-width:500px;
+        max-height:300px;    	
     }
     .fileInput{
         position:absolute;
@@ -43,6 +43,8 @@
         filter:alpha(opacity=0);
         cursor:pointer;
     }
+    body .demo-class{text-align: center;background-color: rgba(0,0,0,.6);color:white;border: none;box-shadow: none;border-radius: 2px;position: fixed;}
+    body .demo-class .layui-layer-content{padding: 12px;}
 </style> 
   </head>
   <body class='contrast-red'>

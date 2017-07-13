@@ -1,13 +1,8 @@
 <?php
 
-namespace app\admin\model;
+namespace app\api\model;
 
 class Fssmodel extends \think\Model {
-
-    protected $autoWriteTimestamp = true;
-    protected $type = [
-        'create_time' => 'int',
-    ];
 
     //读取器 适用类型
     protected function getPurposeAttr($value, $data) {

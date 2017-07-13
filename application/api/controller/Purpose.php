@@ -2,16 +2,16 @@
 
 namespace app\api\controller;
 
-//面料颜色类
-class Color extends Safe {
+//适用类
+class Purpose extends Safe {
 
-    //获取所有color
+    //获取所有Purpose
     public function index() {
-        $list = db('Fssfabriccolor')->where('status', '1')->field('id,name,colorv,url')->order('id desc')->select();
+        $list = db('Fssfabricpurpose')->where('status', '1')->field('id,name,url')->order('id desc')->select();
         header("Content-type: text/xml; charset=utf-8");
         $xmlstring = new \SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><xml />');
         foreach ($list as $value) {
-            $xmlapplist = $xmlstring->addchild('Color');
+            $xmlapplist = $xmlstring->addchild('Purpose');
             $xmlapplist->addAttribute('id', $value['id']);
             $xmlapplist->addAttribute('name', $value['name']);
             $xmlapplist->addAttribute('url', $value['url']);
@@ -19,11 +19,11 @@ class Color extends Safe {
         exit($xmlstring->asxml());
     }
 
-    //根据颜色ID获取面料信息	
+    //根据适用ID获取面料		
     public function getMlsById() {
-        $color = \app\api\model\Fssfabriccolor::get(input('post.id'));
-        if ($color) {
-            $mianliaos = $color->fssmaterial()
+        $purpose = \app\api\model\Fssfabricpurpose::get(input('post.id'));
+        if ($purpose) {
+            $mianliaos = $purpose->fssmaterial()
                     ->field('id,name,mno,thumb,url,price,zworganization,weight,element,larghezza,weavemode,apply_season,gender,release_season')
                     ->paginate();
             if ($mianliaos->total() > 0) {
@@ -52,11 +52,44 @@ class Color extends Safe {
         }
     }
 
-    //根据颜色ID获取面料关联信息
+    //根据适用ID获取模型
+
+    public function getMxsById() {
+        if (input('post.type')) {
+            $map['type_id'] = input('post.type'); //模型类型		
+        }
+        $map['purpose_id'] = input('post.id');
+        $models = model('Fssmodel')->where('status', '1')->where($map)->paginate();
+        if ($models->total() > 0) {
+            header("Content-type: text/xml; charset=utf-8");
+            $xmlstring = new \SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><xml />');
+            $xmlstring->addAttribute('ys', $models->lastPage()); //分页数量
+            foreach ($models as $value) {
+                $xmlapplist = $xmlstring->addchild('mx');
+                $xmlapplist->addAttribute('id', $value['id']); //模型ID
+                $xmlapplist->addAttribute('name', $value['name']); //模型名
+                $xmlapplist->addAttribute('thumb', $value['thumb']); //模型缩略图		
+                $xmlapplist->addAttribute('price', $value['price']); //模型价格
+                $xmlapplist->addAttribute('oldprice', $value['oldprice']); //模型原格
+                $xmlapplist->addAttribute('detail', $value['detail']); //模型描述		
+                $xmlapplist->addAttribute('sellcount', $value['sellcount']); //模型售出数量
+                $xmlapplist->addAttribute('purpose_id', $value['purpose_id']); //适用ID
+                $xmlapplist->addAttribute('purpose', $value['purpose']); //适用名
+                $xmlapplist->addAttribute('iscanmatch', $value['iscanmatch']); //能否搭配
+                $xmlapplist->addAttribute('hasani', $value['hasani']); //能否走秀
+                $xmlapplist->addAttribute('isstatic', $value['isstatic']); //是否静态
+                $xmlapplist->addAttribute('type_id', $value['type_id']); //适用类别
+                $xmlapplist->addAttribute('type', $value['type']); //模型类型
+            }
+            exit($xmlstring->asxml());
+        }
+    }
+
+    //根据适用ID获取关联面料
     public function getReMlsById() {
-        $color = \app\api\model\Fssfabriccolor::get(input('post.id'));
-        if ($color) {
-            $mianliao_ids = $color->fssmaterial()->field('id')->paginate();
+        $purpose = \app\api\model\Fssfabricpurpose::get(input('post.id'));
+        if ($purpose) {
+            $mianliao_ids = $purpose->fssmaterial()->field('id')->paginate();
             if ($mianliao_ids->total() > 0) {
                 header("Content-type: text/xml; charset=utf-8");
                 $xmlstring = new \SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><xml />');
