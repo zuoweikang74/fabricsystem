@@ -1,0 +1,160 @@
+<div class='row'>
+    <div class='col-sm-12'>  
+
+        <div class='box bordered-box orange-border' style='margin-top:10px;'>
+            <div class='box-header orange-background'>
+                <div class='title'>{:model('menu')->getName()}</div>
+                <div class='actions'>
+                    <a class="btn box-remove btn-xs btn-link" href="#"><i class='fa fa-times'></i>
+                    </a>
+                    <a class="btn box-collapse btn-xs btn-link" href="#"><i></i>
+                    </a>
+                </div>
+            </div>
+            <div class='box'>
+                <div class='box-content'>
+                    <div class='tabbable'>
+                        <ul class='nav nav-tabs nav-tabs-centered'>
+                            <li class='active'>
+                                <a href="{:url('index')}">
+                                    <i class='fa fa-check-circle text-red'></i>
+                                    已审核
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{:url('unchecked')}">
+                                    <i class='fa fa-clock-o'></i>
+                                    待审核
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{:url('reedit')}">
+                                    <i class='fa fa-edit'></i>
+                                    待修改
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{:url('recycleBin')}">
+                                    <i class='fa fa-recycle'></i>
+                                    回收站
+                                </a>
+                            </li>
+                        </ul>
+                    </div>                     
+                    <div class="pull-left">
+                        <a href="{:url('add',['page'=>$Think.get.page])}" class='btn btn-info' style='margin-bottom:15px'>
+                            新增 <i class='fa fa-plus-square'></i>
+                        </a>
+                        <a href="{:url('adds',['page'=>$Think.get.page])}" class='btn btn-info' style='margin-bottom:15px'>
+                            批量上传 <i class='fa fa-plus-square'></i>
+                        </a>
+                        <a href="javascript:void(0);"  onclick="jiadelete()" class='btn btn-danger' style='margin-bottom:15px'>
+                            回收站 <i class='fa fa-recycle'></i>
+                        </a>	
+                    </div>
+                    <div class="pull">
+                        <form class='navbar-form navbar-right' role='search' method='post' action="{:url('index')}">
+                            <div class='form-group'>      
+                                <input class='form-control' id="name" placeholder='根据名称查询' type='text' name="name" value="{$Think.request.name}"/>&nbsp;	
+                            </div>
+                            <div class='form-group'>										
+                                <input class='form-control' id="mno" placeholder='根据编号查询' type='text' name="mno" value="{$Think.request.mno}"/>&nbsp;
+                            </div>
+                            <!--                            <div class='form-group'>										
+                                                            <input class='form-control' id="price" placeholder='根据价格查询' type='text' name="price" value="{$Think.request.price}"/>&nbsp;
+                                                        </div>   -->
+                            <div class='form-group'>
+                                <select class='form-control' id='type' name="type_id">
+                                    <option value="0">全部</option>
+                                    {volist id="type" name="types"}
+                                    <option value="{$type.id}" {eq name="Think.request.type_id" value="$type.id"}selected{/eq} >{$type.name}</option>
+                                    {/volist}
+                                </select>
+                            </div>
+                            <button class='btn btn-success'  type='submit'>&nbsp;查询</button>
+                        </form>
+
+                    </div>
+                    <div class="clearfix"></div>
+
+                </div>
+            </div>
+            <div class='box-content box-no-padding'>
+                <div class='responsive-table'>
+                    <div class='scrollable-area'>
+
+                        <table id="checkList" class='data-table table table-bordered table-striped' style='margin-bottom:0;'>
+                            <thead>
+                                <tr>
+                                    <th class="text-center"><input type="checkbox" id="check" onclick="CheckAll('checkList')"></th>			
+                                    <th class="text-center"><a href="javascript:sortBy('id','{$sort}','index')" title="按照编号排列 ">编号</a></th>
+                                    <th class="text-center">面料编号</th>
+                                    <th class="text-center">面料名称</th>
+                                    <th class="text-center">图片</th>
+                                    <th class="text-center">面料售价</th>
+                                    <th class="text-center">上传用户</th>
+                                    <th class="text-center">所属公司</th>
+                                    <th class="text-center">上传时间</th>
+                                    <th class="text-center">状态</th>
+                                    <th class="text-center">推荐</th>
+                                    <th class="text-center">操作</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                {volist name='lists' id='vo'}
+                                <tr>
+                                    <td class="text-center"><input id="cb{$vo.id}" type="checkbox" name="key"  value="{$vo.id}"></td>
+                                    <td class="text-center">{$vo.id}</td>
+                                    <td class="text-center">{$Think.request.mno?str_replace($Think.request.mno, '<font color=red>'.$Think.request.mno.'</font>', $vo['mno']):$vo['mno']}</td>
+                                    <td class="text-center">{$Think.request.name?str_replace($Think.request.name, '<font color=red>'.$Think.request.name.'</font>', $vo['name']):$vo['name']}</td>
+                                    <td class="text-center" style="padding:0;vertical-align: middle;">
+                                        <a href="javascript:void(0);"  onclick="bigpic({$vo['id']})"><img  src="{$vo.thumb}" width="30" height="30" /></a>
+                                    </td>
+                                    <td class="text-center">{$vo['price']}</td>
+                                    <td class="text-center">{$vo['user_id']}</td>
+                                    <td class="text-center">{$vo['company_id']}</td>
+                                    <td class="text-center">{$vo.create_time|date="Y-m-d H:i:s",###}</td>
+                                    <td class="text-center">
+                                        <a id="status{$vo['id']}"  title="是否启用" href="javascript:void(0);"  onclick="jingyong({$vo['id']})">
+                                            {$vo['status']|getStatus}
+                                        </a>
+                                    </td>
+                                    <td class="text-center">
+                                        <a id="tuijian{$vo['id']}"  title="是否推荐" href="javascript:void(0);"  onclick="isTuijian({$vo['id']})">
+                                            {$vo['is_tuijian']|getTjStatus}
+                                        </a>
+                                    </td>
+                                    <td class="text-center">                                  
+                                        <a href="{:url('edit',['id'=>$vo['id'],'page'=>$Think.get.page])}">
+                                            <span class="btn btn-xs btn-info">
+                                                <i class="ace-icon fa fa-edit"></i>
+                                            </span>
+                                        </a>
+
+                                        <a href="javascript:void(0);"  onclick="jiadelete({$vo.id})">
+                                            <span class="btn btn-xs btn-danger">
+                                                <i class="ace-icon fa fa-recycle"></i>
+                                            </span>
+                                        </a>
+                                    </td>
+
+                                </tr>
+                                {/volist}
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div> 
+    </div>
+</div>
+<!-- 分页开始 -->        
+<div class='row'>
+    <div class='col-sm-12 box box-nomargin text-center'>
+        {$lists->render()}
+    </div>
+</div>

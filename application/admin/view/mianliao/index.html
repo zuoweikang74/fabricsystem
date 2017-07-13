@@ -1,0 +1,110 @@
+<div class='row'>
+    <div class='col-sm-12'>  
+
+        <div class='box bordered-box orange-border' style='margin-top:10px;'>
+            <div class='box-header orange-background'>
+                <div class='title'>{:model('menu')->getName()}</div>
+                <div class='actions'>
+                    <a class="btn box-remove btn-xs btn-link" href="#"><i class='fa fa-times'></i>
+                    </a>
+                    <a class="btn box-collapse btn-xs btn-link" href="#"><i></i>
+                    </a>
+                </div>
+            </div>
+            <div class='box'>
+                <div class='box-content'>
+                    <div class="pull-left">
+                        <a href="{:url('mlxgadd',['page'=>$Think.get.page])}" class='btn btn-info' style='margin-bottom:5px'>
+                            新增
+                            <i class='fa fa-plus-square'></i>
+                        </a>
+                        <a href="javascript:void(0);"  onclick="picreldelete()" class='btn btn-info' style='margin-bottom:5px'>
+                            删除
+                            <i class='fa fa-remove'></i>
+                        </a>
+
+                    </div>
+                    <div class="pull-right"></div>
+                    <div class="clearfix"></div>
+
+                </div>
+            </div>
+            <div class='box-content box-no-padding'>
+                <div class='responsive-table'>
+                    <div class='scrollable-area'>
+
+                        <table id="checkList" class='data-table table table-bordered table-striped' style='margin-bottom:0;'>
+                            <thead>
+                                <tr>
+                                    <th class="text-center"><input type="checkbox" id="check" onclick="CheckAll('checkList')"></th>			
+                                    <th class="text-center"><a href="javascript:sortBy('id','{$sort}','index')" title="按照编号排列 ">编号</a></th>
+                                    <th class="text-center">名称</th>
+                                    <th class="text-center">图片</th>
+                                    <th class="text-center">状态</th>
+                                    {if condition="(request()->controller() == 'Fssfabricpattern')"}<th class="text-center">推荐</th>{/if}
+                                    <th class="text-center">操作</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                {volist name='lists' id='vo'}
+                                <tr>
+                                    <td class="text-center"><input id="cb{$vo.id}" type="checkbox" name="key"  value="{$vo.id}"></td>
+                                    <td class="text-center">{$vo.id}</td>
+                                    <td class="text-center">{$vo.name}</td>
+                                    <td class="text-center" style="padding:0;vertical-align: middle;">
+                                        <a href="{:Url('showImg',['url'=>$vo['url']])}" data-toggle="modal" data-target="#imgmodal"><img  src="{$vo.thumb}" width="30" height="30" /></a>
+                                    </td>    
+                                    <td class="text-center">
+
+                                        <a id="status{$vo['id']}"  title="是否启用" href="javascript:void(0);"  onclick="jingyong({$vo['id']})">
+                                            {$vo['status']|getStatus}
+                                        </a>
+
+                                    </td>
+                                    {if condition="(request()->controller() == 'Fssfabricpattern')"}
+                                    <td class="text-center">
+                                        <a id="tuijian{$vo['id']}"  title="是否推荐" href="javascript:void(0);"  onclick="isTuijian({$vo['id']})">
+                                            {$vo['is_tuijian']|getTjStatus}
+                                        </a>
+                                    </td>
+                                    {/if}
+                                    <td class="text-center">                                  
+                                        <a href="{:url('mlxgedit',['id'=>$vo['id'],'page'=>$Think.get.page])}">
+                                            <span class="btn btn-xs btn-info">
+                                                <i class="ace-icon fa fa-edit"></i>
+                                            </span>
+                                        </a>
+
+                                        <a href="javascript:void(0);"  onclick="picreldelete({$vo.id})">
+                                            <span class="btn btn-xs btn-danger">
+                                                <i class="ace-icon fa fa-trash-o"></i>
+                                            </span>
+                                        </a>
+                                    </td>
+
+                                </tr>
+                                {/volist}
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div> 
+    </div>
+</div>
+<!-- 分页开始 -->        
+<div class='row'>
+    <div class='col-sm-12 box box-nomargin text-center'>
+        {$lists->render()}
+    </div>
+</div>
+<!-- 模态对话框 -->  
+<div class='modal fade' id='imgmodal'  tabindex='-1'>
+    <div class='modal-dialog'>
+        <div class='modal-content'>  </div>
+    </div>
+</div>  

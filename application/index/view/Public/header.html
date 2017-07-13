@@ -1,0 +1,150 @@
+<header>
+    <nav class='navbar navbar-default'>
+        <a class='navbar-brand' href="{:Url('Index/index')}">
+            绚试™ MTM管理系统
+        </a>
+        <a class='toggle-nav btn pull-left' href='#'>
+            <i class='fa fa-bars'></i>
+        </a>
+        <ul class='nav'>
+            <li class='dropdown light only-icon'>
+                <a class='dropdown-toggle' data-toggle='dropdown' href='#'>
+                    <i class='fa fa-cog'></i>
+                </a>
+                <ul class='dropdown-menu color-settings'>
+                    <li class='color-settings-body-color'>
+                        <div class='color-title'>改变风格</div>
+                        <a data-change-to='/static/assets/stylesheets/light-theme.css' href='#'>
+                            浅色
+                            <small>(默认)</small>
+                        </a>
+                        <a data-change-to='/static/assets/stylesheets/dark-theme.css' href='#'>
+                            深色
+                        </a>
+                        <a data-change-to='/static/assets/stylesheets/dark-blue-theme.css' href='#'>
+                            深蓝色
+                        </a>
+                    </li>
+                    <li class='divider'></li>
+                    <li class='color-settings-contrast-color'>
+                        <div class='color-title'>改变色彩</div>
+                        <a data-change-to="contrast-red" href="#"><i class='fa fa-cog text-red'></i>
+                            红色
+                            <small>(默认)</small>
+                        </a>
+                        <a data-change-to="contrast-blue" href="#"><i class='fa fa-cog text-blue'></i>
+                            蓝色
+                        </a>
+                        <a data-change-to="contrast-orange" href="#"><i class='fa fa-cog text-orange'></i>
+                            橘黄色
+                        </a>
+                        <a data-change-to="contrast-purple" href="#"><i class='fa fa-cog text-purple'></i>
+                            紫色
+                        </a>
+                        <a data-change-to="contrast-green" href="#"><i class='fa fa-cog text-green'></i>
+                            绿色
+                        </a>
+                        <a data-change-to="contrast-muted" href="#"><i class='fa fa-cog text-muted'></i>
+                            灰色
+                        </a>
+                        <a data-change-to="contrast-fb" href="#"><i class='fa fa-cog text-fb'></i>
+                            品牌蓝
+                        </a>
+                        <a data-change-to="contrast-dark" href="#"><i class='fa fa-cog text-dark'></i>
+                            深灰
+                        </a>
+                        <a data-change-to="contrast-pink" href="#"><i class='fa fa-cog text-pink'></i>
+                            暗紫色
+                        </a>
+                        <a data-change-to="contrast-grass-green" href="#"><i class='fa fa-cog text-grass-green'></i>
+                            草绿色
+                        </a>
+                        <a data-change-to="contrast-sea-blue" href="#"><i class='fa fa-cog text-sea-blue'></i>
+                            海蓝色
+                        </a>
+                        <a data-change-to="contrast-banana" href="#"><i class='fa fa-cog text-banana'></i>
+                            黄色
+                        </a>
+                        <a data-change-to="contrast-dark-orange" href="#"><i class='fa fa-cog text-dark-orange'></i>
+                            深橘色
+                        </a>
+                        <a data-change-to="contrast-brown" href="#"><i class='fa fa-cog text-brown'></i>
+                            褐色
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class='dropdown dark user-menu'>
+                <a class='dropdown-toggle' data-toggle='dropdown' href='#'>
+                    <img width='23'  height='23' src="{$Think.session.user_img|default='/static/assets/images/user.png'}" />
+                    <span class='user-name'>{:session('account')}</span>
+                    <b class='caret'></b>
+                </a>
+                <ul class='dropdown-menu'>
+
+                    <li>
+                        <a href="{:Url('Index/Fsscustomer/userProfile')}">
+                            <i class='fa fa-user'></i>
+                            我的信息
+                        </a>
+                    </li>
+                    <li class='divider'></li>
+
+                    <li>
+                        <a href="{:url('login/logout')}">
+                            <i class='fa fa-sign-out'></i>
+                            安全退出
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul><!--
+        <form action='search_results.html' class='navbar-form navbar-right hidden-xs' method='get'>
+          <button class='btn btn-link fa fa-search' name='button' type='submit'></button>
+          <div class='form-group'>
+            <input type="text" name="q" value="" class="form-control" placeholder="搜索..." autocomplete="off" id="q_header" />
+          </div>
+        </form>
+        --></nav>
+</header>
+<div id='wrapper'>
+    <div id='main-nav-bg'></div>
+    <nav id='main-nav'>
+        <div class='navigation'>
+            <ul class='nav nav-stacked'>
+
+                <li>
+                    <a  class='dropdown-collapse ' href='#'>
+                        <i class='fa fa-delicious '></i>
+                        <span> 面料管理 </span><i class='fa fa-angle-down angle-down'></i>
+                    </a>                           
+                    <ul class='nav nav-stacked'>
+                        <li {eq name="$Request.controller" value="Fssmaterial"}class="active"{/eq}>
+                            <a href="{:url('Fssmaterial/index')}">
+                                <div class="icon"> <i class = 'fa fa-caret-right '></i> </div>
+                                <span> 面料列表 </span>
+                            </a>
+                        </li>
+                        {eq name="$Think.session.type" value="1"}
+                        <li {eq name="$Request.controller" value="Fsscustomer"}class="active"{/eq}>
+                            <a href="{:url('Fsscustomer/index')}">
+                                <div class="icon"> <i class = 'fa fa-caret-right '></i> </div>
+                                <span> 公司成员</span>
+                            </a>
+                        </li> 
+                        <li {eq name="$Request.controller" value="Fsscompany"}class="active"{/eq}>
+                            <a href="{:url('Fsscompany/index')}">
+                                <div class="icon"> <i class = 'fa fa-caret-right '></i> </div>
+                                <span> 公司信息</span>
+                            </a>
+                        </li> 
+                        {/eq}
+                    </ul>
+                </li>
+            </ul>         
+        </div>
+    </nav>
+</div>
+</nav>
+<section id='content'>
+    <div class='container'>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang='en'>
+    <head>
+        <title>绚试™ MTM管理系统(服装行业量身定制)</title>
+        {include file="public/meta" /}
+    </head>
+    <body class='contrast-red'>
+        {include file="public/header" /}
+        <div id='wrapper'>
+            <div id='main-nav-bg'></div>
+            <nav id='main-nav'>
+                <div class='navigation'>
+                    {:action('ShowMenu/index',['id' => '1'],'widget')}
+                </div>
+            </nav>
+            <section id='content'>
+                <div class='container'>
+                    {__CONTENT__}
+                    {include file="public/footer" /}    
+            </section>
+        </div>
+        <!-- / jquery [required] -->
+        {include file="public/bottomjs" /}
+        <script>
+            var u = $(".active").parent('ul');
+            var uc = u.attr("class");//
+            if (uc == 'nav nav-stacked') {
+                u.prev().attr("class", "dropdown-collapse in");
+                u.show();
+            }
+
+        </script>
+        <script>
+            $(".db-import").click(function () {
+                var self = this, status = ".";
+                $.get(self.href, success, "json");
+                window.onbeforeunload = function () {
+                    return "正在还原数据库，请不要关闭！";
+                };
+                return false;
+                function success(data) {
+                    if (data.code) {
+                        if (data.data.gz) {
+                            data.msg += status;
+                            if (status.length === 5) {
+                                status = ".";
+                            } else {
+                                status += ".";
+                            }
+                        }
+   
+                        $(self).parent().prev().html(data.msg);
+                        if (data.data.part) {
+                            $.get(self.href, {"part": data.data.part, "start": data.data.start}, success, "json");
+                        } else {
+                            window.onbeforeunload = function () {
+                                return null;
+                            };
+                        }
+                    } else {
+                        var html = '<i class=\'fa fa-info-circle\'></i> ' + data.msg;
+                        $("#result").html(html).show();
+                    }
+                }
+            });
+        </script>
+    </body>
+</html>

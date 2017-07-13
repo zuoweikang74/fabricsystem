@@ -1,0 +1,131 @@
+<div class='row'>
+    <div class='col-sm-12'>  
+
+        <div class='box bordered-box orange-border' style='margin-top:10px;'>
+            <div class='box-header orange-background'>
+                <div class='title'>用户列表</div>
+                <div class='actions'>
+                    <a class="btn box-remove btn-xs btn-link" href="#"><i class='fa fa-times'></i>
+                    </a>
+                    <a class="btn box-collapse btn-xs btn-link" href="#"><i></i>
+                    </a>
+                </div>
+            </div>
+            <div class='box'>
+                <div class='box-content'>
+
+                    <div class="pull-left">
+                        {if condition="checkPath('Admin/add')"}
+                        <a href="{:url('add',['page'=>$Think.get.page])}" class='btn btn-info' style='margin-bottom:5px'>
+                            新增
+                            <i class='fa fa-plus-square'></i>
+                        </a>
+                        {/if}
+                        {if condition="checkPath('Admin/delete')"}
+                        <a href="javascript:void(0);"  onclick="del()" class='btn btn-info' style='margin-bottom:5px'>
+                            删除
+                            <i class='fa fa-remove'></i>
+                        </a>
+                        {/if}
+                    </div>
+                    <div class="pull">
+                        <form class='navbar-form navbar-right' role='search' method='post' action="{:url('index')}">
+                            <div class='form-group'>
+                                <input class='form-control' placeholder='根据账号查询' type='text' name="account" value="{$Think.request.account}"/>
+                            </div>
+                            <button class='btn btn-success'  type='submit'>查询</button>
+                        </form>
+                    </div>
+                    <div class="clearfix"></div>
+
+                </div>
+            </div>
+            <div class='box-content box-no-padding'>
+                <div class='responsive-table'>
+                    <div class='scrollable-area'>
+
+                        <table id="checkList" class='data-table table table-bordered table-striped' style='margin-bottom:0;'>
+                            <thead>
+                                <tr>
+                                    <th class="text-center"><input type="checkbox" id="check" onclick="CheckAll('checkList')"></th>			
+                                    <th class="text-center"><a href="javascript:sortBy('id','{$sort}','index')" title="按照编号排列 ">编号</a></th>
+                                    <th class="text-center">账号</th>
+                                    <th class="text-center">姓名</th>
+                                    <th class="text-center">邮箱</th>
+                                    <th class="text-center">最后登录IP</th>
+                                    <th class="text-center">最后登陆时间</th>
+                                    <th class="text-center">登陆次数</th>
+                                    <th class="text-center">状态</th>
+                                    <th class="text-center">操作</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                {volist name='lists' id='vo'}
+                                <tr>
+                                    <td class="text-center">{eq name="$vo.id" value="1"}★{else/}<input id="cb{$vo.id}" type="checkbox" name="key"  value="{$vo.id}">{/eq} </td>
+                                    <td class="text-center">{$vo.id}</td>
+                                    <td class="text-center">{$Think.request.account?str_replace($Think.request.account, '<font color=red>'.$Think.request.account.'</font>', $vo['account']):$vo['account']}</td>
+                                    <td class="text-center">{$vo.name}</td>
+                                    <td class="text-center">{$vo.email}</td>
+                                    <td class="text-center">{:long2ip($vo.last_login_ip)}</td>
+                                    <td class="text-center">{$vo.last_login_time|date="Y-m-d H:i:s",###}</td>
+                                    <td class="text-center">{$vo.login_count}</td>
+                                    <td class="text-center">
+                                        {eq name="$vo.id" value="1"}{$vo['status']|getStatus}{else/}
+                                        <a id="status{$vo['id']}"  title="是否启用" href="javascript:void(0);"  onclick="jingyong({$vo['id']})">
+                                            {$vo['status']|getStatus}
+                                        </a>
+                                        {/eq}
+                                    </td>
+
+                                    <td class="text-center">
+                                        {eq name="$vo.id" value="1"}
+                                        <span class="btn btn-xs btn-warning disabled">
+                                            <i class="ace-icon fa fa-shield "></i>
+                                        </span>
+                                        <span class="btn btn-xs btn-info disabled">
+                                            <i class="ace-icon fa fa-edit"></i>
+                                        </span>
+                                        <span class="btn btn-xs btn-danger disabled">
+                                            <i class="ace-icon fa fa-trash-o"></i>
+                                        </span>
+                                        {else/}                                        
+                                        <a href="{:url('auth/adminAuthorize',['id'=>$vo['id'],'name'=>$vo['account']])}" title="独立权限">
+                                            <span class="btn btn-xs btn-warning">
+                                                <i class="ace-icon fa fa-shield "></i>
+                                            </span>
+                                        </a>                                     
+                                        <a href="{:url('edit',['id'=>$vo['id'],'page'=>$Think.get.page])}" >
+                                            <span class="btn btn-xs btn-info">
+                                                <i class="ace-icon fa fa-edit"></i>
+                                            </span>
+                                        </a>
+
+                                        <a href='javascript:void(0)' onclick="del({$vo.id})" >
+                                            <span class="btn btn-xs btn-danger">
+                                                <i class="ace-icon fa fa-trash-o"></i>
+                                            </span>
+                                        </a>
+                                        {/eq}
+                                    </td>
+
+                                </tr>
+                                {/volist}
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div> 
+    </div>
+</div>
+<!-- 分页开始 -->        
+<div class='row'>
+    <div class='col-sm-12 box box-nomargin text-center'>
+        {$lists->render()}
+    </div>
+</div>

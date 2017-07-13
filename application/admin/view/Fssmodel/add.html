@@ -1,0 +1,121 @@
+<div class='row'>
+    <div class='col-sm-12'>
+        <div class='box' >
+            <div class='box-header blue-background' style='margin-top:10px;'>
+                <div class='title'> 模型新增</div>
+
+                <div class='actions'>
+                    <button class="btn btn-sm btn-primary "  onclick="javascript:window.location.href = '__URL__/index?page={$Think.get.page}'">
+                        返回列表
+                        <i class="icon-reply icon-only"></i>
+                    </button>
+                    <a class="btn box-remove btn-xs btn-link" href="#"><i class='fa fa-times'></i>
+                    </a>
+                    <a class="btn box-collapse btn-xs btn-link" href="#"><i></i>
+                    </a>
+                </div>
+            </div>
+            <div class='box-content'>
+                <form class='form form-horizontal validate-form' method="post" enctype="multipart/form-data" action="{:url('add')}" >
+                    {:token()}
+                    <input type="hidden" id="page" name="page" value="{$Think.get.page}" />
+                    <div class='form-group'>
+                        <label class='col-md-3 control-label' for='validation_name'>模型名称:</label>
+                        <div class='col-md-6 controls'>
+                            <input id='validation_name' class='form-control' data-rule-minlength='2'
+                                   data-rule-required='true'  name='name'
+                                   placeholder='模型名称' type='text' />
+                        </div>
+                    </div>
+                    <div class='form-group'>
+                        <label class='col-md-3 control-label' for='validation_image'>模型图片:</label>
+                        <div class='col-md-6 controls'>
+                            <input data-file-input data-show-preview='ture' title='请上传模型图片' type='file' name="image" 
+                                   id="validation_image" data-rule-required='true' >
+                        </div>
+                    </div>
+                    <div class='form-group'>
+                        <label class='col-md-3 control-label' for='validation_model'>模型文件:</label>
+                        <div class='col-md-6 controls'>
+                            <input data-file-input data-show-preview='false' title='请上传模型文件' type='file' name="model" 
+                                   id="validation_model" data-rule-required='true' >
+                        </div>
+                    </div>									
+                    <div class="form-group">
+                        <label class='col-md-3 control-label' for='validation_price'>模型现价:</label>
+                        <div class='col-md-6'>
+                            <div class='input-group'>
+                                <span class='input-group-addon'>¥</span>
+                                <input class='form-control text-left' id='validation_price' type='text' data-rule-required='true'  data-rule-number='true'  name="price">
+                                <span class='input-group-addon'>.00</span>
+                            </div>
+                        </div>		     
+                    </div>
+                    <div class="form-group">
+                        <label class='col-md-3 control-label' for='validation_oldprice'>模型原价:</label>
+                        <div class='col-md-6'>
+                            <div class='input-group'>
+                                <span class='input-group-addon'>¥</span>
+                                <input class='form-control text-left' id='validation_oldprice'  data-rule-number='true'  type='text' name="oldprice">
+                                <span class='input-group-addon'>.00</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class='form-group'>
+                        <label class='col-md-3 control-label' for='validation_detail'>模型描述:</label>
+                        <div class='col-md-6 controls'>
+                            <textarea id='validation_detail' class="form-control" name="detail"  rows="3"></textarea>                           
+                        </div>
+                    </div>
+
+                    <div class='form-group'>
+                        <label class='col-md-3 control-label' for='validation_purposes'>适用类型:</label>
+                        <div class='col-md-6 controls'>
+                            {volist id="purpose" name="purposes"}
+                                <label class="radio radio-inline"><input id='validation_purposes' data-rule-required='true' name="purpose_id" type="radio" value="{$purpose.id}"/>{$purpose.name}</label>																				
+                            {/volist}
+                        </div>
+                    </div>
+                    <div class='form-group'>
+                        <label class='col-md-3 control-label' for='validation_iscanmatch'>能否搭配:</label>
+                        <div class='col-md-6 controls'>
+                            <select class='form-control' id='validation_iscanmatch' name="iscanmatch" >	
+                                <option value="1" >是</option>								
+                                <option value="0" >否</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class='form-group'>
+                        <label class='col-md-3 control-label' for='validation_hasani'>能否走秀:</label>
+                        <div class='col-md-6 controls'>
+                            <select class='form-control' id='validation_hasani' name="hasani" >	
+                                <option value="0" >否</option>										
+                                <option value="1" >是</option>									
+                            </select>
+                        </div>
+                    </div>
+                    <div class='form-group'>
+                        <label class='col-md-3 control-label' for='validation_isstatic'>是否静态:</label>
+                        <div class='col-md-6 controls'>
+                            <select class='form-control' id='validation_isstatic' name="isstatic" >	
+                                <option value="0" >否</option>										
+                                <option value="1" >是</option>									
+                            </select>
+                        </div>
+                    </div>	
+                    <div class='form-actions' style='margin-bottom:0'>
+                        <div class='row'>
+                            <div class='col-sm-9 col-sm-offset-3'>
+                                <button class='btn btn-primary' type='submit'>
+                                    提交
+                                </button>
+                                <a class='btn' style="margin-left:20px;" onclick="history.go(-1)">返回</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>                  

@@ -1,0 +1,88 @@
+<div class='row'>
+    <div class='col-sm-12'>  
+
+        <div class='box bordered-box orange-border' style='margin-top:10px;'>
+            <div class='box-header orange-background'>
+                <div class='title'>日志列表</div>
+                <div class='actions'>
+                    <a class="btn box-remove btn-xs btn-link" href="#"><i class='fa fa-times'></i>
+                    </a>
+                    <a class="btn box-collapse btn-xs btn-link" href="#"><i></i>
+                    </a>
+                </div>
+            </div>
+            <div class='box'>
+                <div class='box-content'>                    
+                    <div class="pull">
+                        <form class='navbar-form navbar-left' role='search' method='post' action="{:url('index')}">
+                            <div class='form-group'>
+                                <label class='control-label'>账号：</label> 
+                                <input class='form-control' placeholder='根据账号查询' type='text' name="username" value="{$Think.request.username}"/>
+                                <label class='control-label'>标题：</label> 
+                                <input class='form-control' placeholder='根据标题查询' type='text' name="title" value="{$Think.request.title}"/>
+                                <input type="hidden" id="page" name="page" value="{$Think.get.page}" />
+                            </div>
+                            <button class='btn btn-success'  type='submit'>查询</button>
+                        </form>
+                    </div>
+                    <div class="pull">
+                        <form class='navbar-form navbar-right' method='post' action="{:Url('Log/clear')}">
+                            <div class='form-group'>
+                                {if condition="checkPath('Log/clear')"}
+                                <button class="btn btn-success" type='submit'>清空日志</button>
+                                {/if}
+                            </div>
+                        </form>
+
+                    </div>
+                    <div class="clearfix"></div>
+
+                </div>
+            </div>
+            <div class='box-content box-no-padding'>
+                <div class='responsive-table'>
+                    <div class='scrollable-area'>
+
+                        <table id="checkList" class='data-table table table-bordered table-striped' style='margin-bottom:0;'>
+                            <thead>
+                                <tr>		
+                                    <th class="text-center"><a href="javascript:sortBy('id','{$sort}','index')" title="按照编号排列 ">编号</a></th>
+                                    <th class="text-center">用户</th>
+                                    <th class="text-center">操作</th> 
+                                    <th class="text-center">详细信息</th>                                    
+                                    <th class="text-center">操作地址</th>
+                                    <th class="text-center">IP地址</th>
+                                    <th class="text-center">操作时间</th>
+
+
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                {volist name='lists' id='vo'}
+                                <tr>
+                                    <td class="text-center">{$vo.id}</td>
+                                    <td class="text-center">{$Think.request.username?str_replace($Think.request.username, '<font color=red>'.$Think.request.username.'</font>', $vo['username']):$vo['username']}</td>
+                                    <td class="text-center">{$Think.request.title?str_replace($Think.request.title, '<font color=red>'.$Think.request.title.'</font>', $vo['title']):$vo['title']}</td>                                    
+                                    <td class="text-center">{$vo.log}</td>
+                                    <td class="text-center">{$vo.log_url}</td>
+                                    <td class="text-center">{$vo.action_ip}</td>
+                                    <td class="text-center">{:date('Y-m-d H:i:s',$vo['create_time'])}</td>
+                                </tr>
+                                {/volist}
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div> 
+    </div>
+</div>
+<!-- 分页开始 -->        
+<div class='row'>
+    <div class='col-sm-12 box box-nomargin text-center'>
+        {$lists->render()}
+    </div>
+</div>

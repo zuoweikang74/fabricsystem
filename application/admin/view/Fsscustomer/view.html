@@ -1,0 +1,84 @@
+<div class='row'>
+    <div class='col-sm-12'>
+        <div class='box' >
+            <div class='box-header blue-background' style='margin-top:10px;'>
+                <div class='title'> 信息预览</div>
+
+                <div class='actions'>
+                    <button class="btn btn-sm btn-primary "  onclick="javascript:window.location.href = '__URL__/unchecked?page={$Think.get.page}'">
+                        返回列表
+                        <i class="icon-reply icon-only"></i>
+                    </button>
+                    <a class="btn box-remove btn-xs btn-link" href="#"><i class='fa fa-times'></i>
+                    </a>
+                    <a class="btn box-collapse btn-xs btn-link" href="#"><i></i>
+                    </a>
+                </div>
+            </div>
+            <div class='box-content'>
+                <form class='form form-horizontal validate-form'>
+                    <div class='form-group'>
+                        <label class='col-md-2 control-label'>真实姓名:</label>
+                        <div class='col-md-5 controls'>
+                            <input class='form-control'  disabled  placeholder='真实姓名' type='text' value="{$list.name}"/>
+                        </div>
+                    </div> 
+                    <div class='form-group'>
+                        <label class='col-md-2 control-label'>个人头像:</label>
+                        <div class='col-md-5 controls'>
+                            <div class='userheadimg'>
+                                <img id="loc_img" class="img-responsive" src="{$list.thumb}" />
+                            </div>
+                        </div>	
+                    </div>
+                    <div class='form-group'>
+                        <label class='col-md-2 control-label'>身份证号:</label>
+                        <div class='col-md-5 controls'>
+                            <input class='form-control' disabled placeholder='身份证号' type='text' value="{$list.id_card}" />
+                        </div>
+                    </div>  
+                    <div class='form-group'>
+                        <label class='col-md-2 control-label'>手机号码:</label>
+                        <div class='col-md-5 controls'>
+                            <input class='form-control' disabled placeholder='手机号码' type='text' value="{$list.phone}" />
+                        </div>
+                    </div>                   
+                    <div class='form-group'>
+                        <label class='col-md-2 control-label'>公司名称:</label>
+                        <div class='col-md-5 controls'>
+                            <input class='form-control' disabled type="text" placeholder='所属公司' value="{$list['company']}" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class='col-md-2 control-label'>营业执照:</label>
+                        <div class='col-md-5 controls'>
+                            <input class='form-control'  disabled type='text' value="{$list.company_number}" />
+                        </div>
+                    </div>
+                    <div class='form-group'>
+                        <label class='col-md-2 control-label'>营业执照:</label>
+                        <div class='col-md-5 controls'>
+                            <div class='userheadimg'>
+                                <img id="loc_img" class="img-responsive" src="{$list.company_thumb}" />
+                            </div>
+                        </div>	
+                    </div>    
+                    <div class='form-group'>
+                        <label class='col-md-2 control-label'>留言信息:</label>
+                        <div class='col-md-5 controls'>
+                            <textarea  class="form-control" disabled  rows="3">{$list.detail}</textarea>
+                        </div>
+                    </div>                   
+                    <div class='form-actions' style='margin-bottom:0'>
+                        <div class='row'>
+                            <div class='col-sm-9 col-sm-offset-3'>
+                                <a class='btn' onclick="history.go(-1)">确定</a>
+                                <a class='btn' style="margin-left:20px;" onclick="history.go(-1)">返回</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>                  

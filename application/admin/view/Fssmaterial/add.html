@@ -1,0 +1,186 @@
+<div class='row'>
+    <div class='col-sm-12'>
+        <div class='box' >
+            <div class='box-header blue-background' style='margin-top:10px;'>
+                <div class='title'> 面料添加</div>
+
+                <div class='actions'>
+                    <button class="btn btn-sm btn-primary "  onclick="javascript:window.location.href = '__URL__/index?page={$Think.get.page}'">
+                        返回列表
+                        <i class="icon-reply icon-only"></i>
+                    </button>
+                    <a class="btn box-remove btn-xs btn-link" href="#"><i class='fa fa-times'></i>
+                    </a>
+                    <a class="btn box-collapse btn-xs btn-link" href="#"><i></i>
+                    </a>
+                </div>
+            </div>
+            <div class='box-content'>
+                <form class='form form-horizontal validate-form' method="post" enctype="multipart/form-data" action="{:url('add')}" >
+                    {:token()}
+                    <input type="hidden" id="page" name="page" value="{$Think.get.page}" />
+                    <input type="hidden" name="release_season" value="0"/>
+                    <div class='form-group'>
+                        <label class='control-label col-md-3' for='validation_name'>面料名称:</label>
+                        <div class='col-md-6 controls'>
+                            <input class='form-control' placeholder='请填写面料名称' data-rule-required='true' id='validation_name' name='name'  type='text' />
+                        </div>
+                    </div>
+                    <div class='form-group'>
+                        <label class='control-label col-md-3' for='validation_mno'>面料编号:</label>
+                        <div class='col-md-6 controls'>
+                            <input class='form-control' placeholder='请填写面料编号' data-rule-required='true' id='validation_name' name='mno'  type='text' />
+                        </div>
+                    </div> 
+                    <div class='form-group'>
+                        <label class='col-md-3 control-label' for='validation_image'>面料图片:</label>
+                        <div class='col-md-6 controls'>
+                            <input data-file-input data-show-preview='ture' title='请上传面料图片' type='file' name="image" 
+                                   id="validation_image" data-rule-required='true' >
+                        </div>
+                    </div>          
+                    <div class='form-group'>
+                        <label class='col-md-3 control-label' for='validation_price'>面料价格:</label>
+                        <div class='col-md-6 controls'>
+                            <input id='validation_price' class='form-control' type="text" name="price" placeholder='面料价格' data-rule-required='true' data-rule-number='true' />
+                        </div>
+                    </div>
+                    <div class='form-group'>
+                        <label class='col-md-3 control-label'>面料工艺:</label>
+                        <div class='col-md-6'>
+                            {volist id="tech" name="techs"}
+                            <div class='checkbox fa-pull-left'>
+                                <label> 
+                                    <input type="checkbox" name="tech[]" value="{$tech.id}" data-rule-required='true'/>{$tech.name}&nbsp; &nbsp;
+                                </label>
+                            </div>
+                            {/volist}
+                        </div>
+                    </div>
+                    <div class='form-group'>
+                        <label class='col-md-3 control-label'>面料颜色:</label>
+                        <div class='col-md-6'>
+                            {volist id="color" name="colors"}
+                            <div class='checkbox fa-pull-left'>
+                                <label> 
+                                    <input type="checkbox" name="color[]"  value="{$color.id}" data-rule-required='true'/>{$color.name} &nbsp; &nbsp;
+                                </label>
+                            </div>
+                            {/volist}
+                        </div>
+                    </div>
+                    <div class='form-group'>
+                        <label class='col-md-3 control-label'>图案类型:</label>
+                        <div class='col-md-6'>
+                            {volist id="pattern" name="patterns"}
+                            <div class='checkbox fa-pull-left'>
+                                <label> 
+                                    <input type="checkbox" name="pattern[]" value="{$pattern.id}" data-rule-required='true'/>{$pattern.name} &nbsp; &nbsp;
+                                </label>
+                            </div>
+                            {/volist}
+                        </div>
+                    </div>
+                    <div class='form-group'>
+                        <label class='col-md-3 control-label'>适用类型:</label>
+                        <div class='col-md-6'>
+                            {volist id="purpose" name="purposes"}
+                            <div class='checkbox fa-pull-left'>
+                                <label> 
+                                    <input type="checkbox" name="purpose[]" value="{$purpose.id}" data-rule-required='true'/>{$purpose.name} &nbsp; &nbsp;
+                                </label>
+                            </div>
+                            {/volist}
+                        </div>
+                    </div>
+                    <div class='form-group'>
+                        <label class='col-md-3 control-label'>特殊处理:</label>
+                        <div class='col-md-6'>
+                            {volist id="deal" name="deals"}
+                            <div class='checkbox fa-pull-left'>
+                                <label> 
+                                    <input type="checkbox" name="deal[]"  value="{$deal.id}" data-rule-required='true'/> {$deal.name}&nbsp; &nbsp;
+                                </label>
+                            </div>
+                            {/volist}
+                        </div>
+                    </div>
+                    <div class='form-group'>
+                        <label class='col-md-3 control-label'>面料类型:</label>
+                        <div class='col-md-6'>
+                            <select class='form-control'  name="type_id">
+                                {volist id="zx" name="types"}<option value="{$zx.id}">{$zx.name}</option>{/volist}
+                            </select>
+                        </div>
+                    </div>
+                    <div class='form-group'>
+                        <label class='col-md-3 control-label' for='validation_zworganization'>织物组织:</label>
+                        <div class='col-md-6 controls'>
+                            <input class='form-control' type='text' name="zworganization" placeholder='请填写织物组织'
+                                   id="validation_zworganization" /> 
+                        </div>	
+                    </div>
+                    <div class='form-group'>
+                        <label class='col-md-3 control-label' for='validation_weight'>面料克重:</label>
+                        <div class='col-md-6 controls'>
+                            <input class='form-control' type='text' name="weight" placeholder='请填写克重'
+                                   id="validation_weight" /> 
+                        </div>	
+                    </div>
+                    <div class='form-group'>
+                        <label class='col-md-3 control-label' for='validation_element'>面料成分:</label>
+                        <div class='col-md-6 controls'>
+                            <input class='form-control' type='text' name="element" placeholder='请填写成分'
+                                   id="validation_element" /> 
+                        </div>	
+                    </div>
+                    <div class='form-group'>
+                        <label class='col-md-3 control-label' for='validation_larghezza'>面料门幅:</label>
+                        <div class='col-md-6 controls'>
+                            <input class='form-control' type='text' name="larghezza" placeholder='请填写门幅'
+                                   id="validation_larghezza" /> 
+                        </div>	
+                    </div>
+                    <div class='form-group'>
+                        <label class='col-md-3 control-label' for='validation_weavemode'>编织方式:</label>
+                        <div class='col-md-6 controls'>
+                            <input class='form-control' type='text' name="weavemode" placeholder='请填写编织方式'
+                                   id="validation_weavemode" /> 
+                        </div>	
+                    </div>
+                    <div class='form-group'>
+                        <label class='col-md-3 control-label' for='validation_gender'>适用性别:</label>
+                        <div class='col-md-6'>
+                            <select class='form-control' id='validation_gender' name="gender" >	
+                                <option value="0" >通用</option>								
+                                <option value="1" >男</option>
+                                <option value="2" >女</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class='form-group'>
+                        <label class='col-md-3 control-label' for='validation_apply_season'>适用季节:</label>
+                        <div class='col-md-6'>
+                            <select class='form-control' id='validation_apply_season' name="apply_season" >	
+                                <option value="1" >春/秋</option>								
+                                <option value="2" >夏</option>
+                                <option value="3" >冬</option>
+                                <option value="4"  selected>全年</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class='form-actions' style='margin-bottom:0'>
+                        <div class='row'>
+                            <div class='col-sm-9 col-sm-offset-3'>
+                                <button class='btn btn-primary' type='submit'>
+                                    提交
+                                </button>
+                                <a class='btn' style="margin-left:20px;" onclick="history.go(-1)">返回</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>                  

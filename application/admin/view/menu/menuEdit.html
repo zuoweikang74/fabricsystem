@@ -1,0 +1,138 @@
+<div class='row'>
+    <div class='col-sm-12'>
+        <div class='box' >
+            <div class='box-header blue-background' style='margin-top:10px;'>
+                <div class='title'>修改菜单</div>
+
+                <div class='actions'>
+
+                    <a class="btn box-remove btn-xs btn-link" href="#"><i class='fa fa-times'></i>
+                    </a>
+                    <a class="btn box-collapse btn-xs btn-link" href="#"><i></i>
+                    </a>
+                </div>
+            </div>
+            <div class='box-content'>
+                <form class='form form-horizontal validate-form' method="post" style='margin-bottom: 0;' action="{:url('menuEdit',['id'=>$info['id']])}" >
+                    {:token()}
+                    <div class='form-group'>
+                        <label class='control-label col-sm-2 ' for='validation_parent_id'>上级菜单：</label>
+                        <div class='col-sm-5 controls'>
+
+                            <select class='form-control' id='validation_parent_id' name="parent_id" data-rule-required='true'>
+                                <option value="1">/</option>
+                                {volist id="menu" name="select"}
+                                <option value="{$menu.id}" {eq name="$menu.id" value="$info.parent_id"}selected{/eq}>{:str_repeat("|&nbsp;&nbsp;&nbsp;&nbsp;",$menu.level)} {eq name="$menu.level" value="0"}|&nbsp;&nbsp;</i> 
+                                <b class="text-red">{$menu.name}</b>{else/}| {$menu.name}{/eq}</option>
+                                {/volist}
+                            </select>                              
+                        </div> 
+                    </div>                                              
+                    <div class='form-group'>
+                        <label class='col-sm-2 control-label' for='validation_status'>菜单状态：</label>
+                        <div class='col-md-5 controls'>
+                            <label class="radio radio-inline"><input id='validation_status' {eq name="$info.status" value="1"}checked{/eq} name="status" type="radio" value="1"/>显示</label>																				
+                            <label class="radio radio-inline"><input id='validation_status' {eq name="$info.status" value="0"}checked{/eq} name="status" type="radio" value="0"/>隐藏</label>  
+                        </div>
+                    </div>
+                    <div class='form-group'>
+                        <label class='col-sm-2 control-label' for='validation_type'>菜单类型：</label>
+                        <div class='col-md-5 controls'>
+                            <label class="radio radio-inline"><input id='validation_type'  {eq name="$info.type" value="1"}checked{/eq} name="type" type="radio" value="1"/>权限认证+菜单</label>																				
+                            <label class="radio radio-inline"> <input id='validation_type' {eq name="$info.type" value="0"}checked{/eq} name="type" type="radio" value="0"/>只作为菜单</label>  
+                        </div>
+                    </div>
+                    <div class='form-group'>
+                        <label class='control-label col-sm-2' for='validation_name'>菜单名称：</label>
+                        <div class='col-sm-5 controls'>
+                            <input class='form-control' data-rule-minlength='2'  id='validation_name' name='name' placeholder='请填写菜单名称' type='text' value="{$info.name}"/>
+                        </div> 
+                    </div> 
+                    <div class='form-group'>
+                        <label class='control-label col-sm-2 ' for='validation_list_order'>排列序号：</label>
+                        <div class='col-sm-5 controls'>
+                            <input class='form-control' data-rule-number='true' id='validation_list_order' name='list_order' placeholder='序号越小排列越靠前' type='text'  value="{$info.list_order}"/>
+                        </div>
+                    </div>                    
+                    <div class='form-group'>
+                        <label class='control-label col-sm-2' for='validation_app'>应用名称：</label>
+                        <div class='col-sm-5 controls'>
+                            <input class='form-control' data-rule-required='true'  id='validation_app' name='app' placeholder='请填写应用名称' type='text' value="{$info.app}"/>
+                        </div> 
+                    </div>                     
+                    <div class='form-group'>
+                        <label class='control-label col-sm-2' for='validation_model'>控制器名：</label>
+                        <div class='col-sm-5 controls'>
+                            <input class='form-control' data-rule-required='true'  id='validation_model' name='model' placeholder='请填写控制器名' type='text' value="{$info.model}"/>
+                        </div> 
+                    </div>                     
+                    <div class='form-group'>
+                        <label class='control-label col-sm-2' for='validation_action'>方法名称：</label>
+                        <div class='col-sm-5 controls'>
+                            <input class='form-control' data-rule-required='true'  id='validation_action' name='action' placeholder='请填写菜单名称' type='text' value="{$info.action}"/>
+                        </div> 
+                    </div>
+                    <div class='form-group'>
+                        <label class='control-label col-sm-2' for='validation_url_param'>URL参数：</label>
+                        <div class='col-sm-5 controls'>
+                            <input class='form-control' data-rule-maxlength='32'  id='validation_url_param' name='url_param' placeholder='例:id=3&amp;cid=3' type='text' value="{$info.url_param}"/>
+                        </div> 
+                    </div>                    
+                    <div class='form-group'>
+                        <label class='control-label col-sm-2' for='validation_rule_param'>验证规则：</label>
+                        <div class='col-sm-5 controls'>
+                            <input class='form-control' data-rule-maxlength='32'  id='validation_rule_param' name='rule_param' placeholder='例:{id}==3 and {cid}==3' type='text' value="{$info.rule_param}"/>
+                        </div> 
+                    </div>                    
+                    <div class='form-group'>
+                        <label class='control-label col-sm-2' for='validation_icon'>菜单图标：</label>
+                        <div class='col-sm-5 controls'>
+                            <input class='form-control' data-rule-maxlength='32'  id='validation_icon' name='icon' placeholder='不带前缀fa-，如fa-user => user' type='text' value="{$info.icon}"/>
+                        </div> 
+                    </div> 
+                    <div class='form-group'>
+                        <label class='control-label col-sm-2 ' for='validation_request'>日志类型：</label>
+                        <div class='col-sm-5 controls'>
+
+                            <select class='form-control' id='validation_request' name="request">
+                                <option value="">关闭</option>
+                                <option value="GET" {eq name="$info.request" value="GET"}selected{/eq}>GET</option>
+                                <option value="POST" {eq name="$info.request" value="POST"}selected{/eq}>POST</option>
+                                <option value="DELETE" {eq name="$info.request" value="DELETE"}selected{/eq}>DELETE</option>
+                                <option value="Ajax" {eq name="$info.request" value="Ajax"}selected{/eq}>Ajax</option>
+                            </select>                              
+                        </div> 
+                    </div>                       
+ 
+              <div class="form-group">
+                <label class='control-label col-sm-2' for='log_rule'>日志规则：</label>
+                <div class='col-sm-5'>
+                  <textarea id='log_rule' class="form-control" name="log_rule"  rows="3">{$info.log_rule}</textarea>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class='control-label col-sm-2' for='remark'>菜单备注：</label>
+                <div class='col-sm-5'>
+                  <textarea id='remark' class="form-control" name="remark"  rows="3">{$info.remark}</textarea>
+                </div>
+              </div>                    
+                    <div class='form-actions' style='margin-bottom:0'>
+                        <div class='row'>
+                            <div class='col-sm-10 col-sm-offset-2'>
+                                <button class='btn btn-primary' type='submit'>
+                                    提交
+                                </button>
+                                <a class='btn' style="margin-left:20px;" onclick="history.go(-1)">返回</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>                  
+
+
+
+
+

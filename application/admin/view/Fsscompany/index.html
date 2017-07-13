@@ -1,0 +1,121 @@
+<div class='row'>
+    <div class='col-sm-12'>  
+
+        <div class='box bordered-box orange-border' style='margin-top:10px;'>
+            <div class='box-header orange-background'>
+                <div class='title'> {:model('menu')->getName()}</div>
+                <div class='actions'>
+                    <a class="btn box-remove btn-xs btn-link" href="#"><i class='fa fa-times'></i>
+                    </a>
+                    <a class="btn box-collapse btn-xs btn-link" href="#"><i></i>
+                    </a>
+                </div>
+            </div>
+            <div class='box'>
+                <div class='box-content'>
+                    <div class="pull-left">
+                        <a href="{:url('add',['page'=>$Think.get.page])}" class='btn btn-info' style='margin-bottom:15px'>
+                            新增
+                            <i class='fa fa-plus-square'></i>
+                        </a>
+                        <a href="javascript:void(0);"  onclick="picreldelete()" class='btn btn-danger' title="该操作会删除公司下的员工请慎重操作" style='margin-bottom:15px'>
+                            永久删除
+                            <i class='fa fa-trash-o'></i>
+                        </a>
+
+                    </div>
+                    <div class="pull">
+                        <form class='navbar-form navbar-right' role='search' method='post' action="{:url('index')}">
+                            <div class='form-group'>      
+                                <input class='form-control' placeholder='根据公司名查询' type='text' name="name" value="{$Think.request.name}"/>&nbsp;	
+                            </div>
+                            <div class='form-group'>										
+                                <input class='form-control' placeholder='根据营业执照号查询' type='text' name="company_number" value="{$Think.request.company_number}"/>&nbsp;
+                            </div>                         
+                            <button class='btn btn-success' type='submit'>查询</button>
+                        </form>
+                    </div>
+                    <div class="clearfix"></div>
+
+                </div>
+            </div>
+            <div class='box-content box-no-padding'>
+                <div class='responsive-table'>
+                    <div class='scrollable-area'>
+
+                        <table id="checkList" class='data-table table table-bordered table-striped' style='margin-bottom:0;'>
+                            <thead>
+                                <tr>
+                                    <th class="text-center"><input type="checkbox" id="check" onclick="CheckAll('checkList')"></th>			
+                                    <th class="text-center"><a href="javascript:sortBy('id','{$sort}','index')" title="按照编号排列 ">编号</a></th>
+                                    <th class="text-center">公司名称</th>
+                                    <th class="text-center">营业执照号</th>
+                                    <th class="text-center">联系人</th>                           
+                                    <th class="text-center">联系电话</th>
+                                    <th class="text-center">公司地址</th>
+                                    <th class="text-center">创建时间</th>
+                                    <th class="text-center">面料空间</th>
+                                    <th class="text-center">状态</th>
+                                    <th class="text-center">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                {volist name="lists" id="vo"}
+                                <tr>
+                                    <td class="text-center"><input id="cb{$vo.id}" type="checkbox" name="key"  value="{$vo.id}"></td>
+                                    <td class="text-center">{$vo.id}</td>
+                                    <td class="text-center">{$Think.request.name?str_replace($Think.request.name, '<font color=red>'.$Think.request.name.'</font>', $vo['name']):$vo['name']}</td>
+                                    <td class="text-center">{$Think.request.company_number?str_replace($Think.request.company_number, '<font color=red>'.$Think.request.company_number.'</font>', $vo['company_number']):$vo['company_number']}</td>
+                                    <td class="text-center">{$vo['linkman']}</td>
+                                    <td class="text-center">{$Think.request.phone?str_replace($Think.request.phone, '<font color=red>'.$Think.request.phone.'</font>', $vo['phone']):$vo['phone']}</td>
+                                    <td class="text-center">{$vo.address}</td>
+                                    <td class="text-center">{$vo.create_time|date="Y-m-d H:i:s",###}</td>
+                                    <td class="text-center">{$vo.mianliao_num}</td>
+                                    <td class="text-center">
+                                        <a id="status{$vo['id']}"  title="是否启用" href="javascript:void(0);"  onclick="jingyong({$vo['id']})">
+                                            {$vo['status']|getStatus}
+                                        </a>
+                                    </td>
+                                    <td class="text-center">  
+                                        <a href="{:url('Fsscustomer/index',['cid'=>$vo['id']])}" title="查看公司成员">
+                                            <span class="btn btn-xs btn-success">
+                                                <i class="ace-icon fa fa-users"></i>
+                                            </span>
+                                        </a>                                        
+                                        <a href="{:url('edit',['id'=>$vo['id'],'page'=>$Think.get.page])}" title="编辑">
+                                            <span class="btn btn-xs btn-info">
+                                                <i class="ace-icon fa fa-edit"></i>
+                                            </span>
+                                        </a>
+                                        <a href="javascript:void(0);"  onclick="picreldelete({$vo.id})" title="永久删除">
+                                            <span class="btn btn-xs btn-danger">
+                                                <i class="ace-icon fa fa-trash-o"></i>
+                                            </span>
+                                        </a>
+                                    </td>
+
+                                </tr>
+                                {/volist}
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div> 
+    </div>
+</div>
+<!-- 分页开始 -->        
+<div class='row'>
+    <div class='col-sm-12 box box-nomargin text-center'>
+        {$lists->render()}
+    </div>
+</div>
+<!-- 模态对话框 -->  
+<div class='modal fade' id='imgmodal'  tabindex='-1'>
+    <div class='modal-dialog'>
+        <div class='modal-content' style="width:1000px;left:50%;margin-left: -500px;">  </div>
+    </div>
+</div>  

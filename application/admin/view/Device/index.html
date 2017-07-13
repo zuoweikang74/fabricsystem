@@ -1,0 +1,67 @@
+<div class='row'>
+    <div class='col-sm-12'>  
+        <div class='box bordered-box orange-border' style='margin-top:10px;'>
+            <div class='box-header orange-background'>
+                <div class='title'> 安全管理列表</div>
+                <div class='actions'>
+                </div>
+            </div>
+            <div class='box'>
+                <div class='box-content'>
+                    <a href="javascript:void(0);"  onclick="picdelete()" class='btn btn-danger' style='margin-top:8px'>
+                        永久删除
+                        <i class='fa fa-trash-o'></i>
+                    </a>
+                    <form class='navbar-form navbar-right' role='search' method='post' action="{:url('index')}" >
+                        <div class='form-group' >
+                            <input class='form-control' id="phone" placeholder='根据手机号码查询'  type='text' name="phone" value="{$Think.request.phone}"/>&nbsp;		    
+                            <input class='form-control' id='code' placeholder='根据设备码查询'  type='text' name="code" value="{$Think.request.code}"/>&nbsp;
+                        </div>	
+                        <button class='btn btn-success right'>&nbsp;查询</button>
+                    </form>
+                </div>
+            </div>
+            <div class='box-content box-no-padding'>
+                <div class='responsive-table'>
+                    <table class='data-table table table-bordered table-striped' id="checkList" 
+                           style='margin-bottom: 0;'>
+                        <thead>
+                            <tr>
+                                <th class="text-center"><input type="checkbox" id="check" onclick="CheckAll('checkList')"></th>
+                                <th class="text-center"><a href="javascript:sortBy('id','{$sort}','index')" title="按照编号排列 ">序号</a></th>
+                                <th class="text-center">手机号</th>
+                                <th class="text-center">设备码</th>
+                                <th class="text-center">创建时间</th>
+                                <th class="text-center">更新时间</th>
+                                <th class="text-center">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {volist id="vo" name="lists"}
+                            <tr>
+                                <td class="text-center"><input id="cb{$vo['id']}" type="checkbox" name="key" value="{$vo['id']}"></td>
+                                <td class="text-center">{$vo['id']}</td> 
+                                <td class="text-center">{$Think.request.phone?str_replace($Think.request.phone, '<font color=red>'.$Think.request.phone.'</font>', $vo['phone']):$vo['phone']}</td>
+                                <td class="text-center">{$Think.request.code?str_replace($Think.request.code, '<font color=red>'.$Think.request.code.'</font>', $vo['code']):$vo['code']}</td>
+                                <td class="text-center">{$vo.create_time|date="Y-m-d H:i:s",###}</td>
+                                <td class="text-center">{$vo.update_time|date="Y-m-d H:i:s",###}</td>
+                                <td class="text-center">
+                                    <a class='btn btn-danger btn-xs' href="javascript:void(0);"  onclick="picdelete({$vo['id']})" title="永久删除">
+                                        <i class='fa fa-trash-o'></i> 
+                                    </a>
+                                </td>
+                            </tr>
+                            {/volist}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 分页开始 -->
+<div class='row'>
+    <div class='col-sm-12 box box-nomargin text-center'>
+        {$lists->render()}
+    </div>
+</div>			

@@ -1,0 +1,147 @@
+<div class='row'>
+    <div class='col-sm-12'>  
+
+        <div class='box bordered-box orange-border' style='margin-top:10px;'>
+            <div class='box-header orange-background'>
+                <div class='title'> 待审核</div>
+                <div class='actions'>
+                    <a class="btn box-remove btn-xs btn-link" href="#"><i class='fa fa-times'></i>
+                    </a>
+                    <a class="btn box-collapse btn-xs btn-link" href="#"><i></i>
+                    </a>
+                </div>
+            </div>
+            <div class='box'>
+                <div class='box-content'>
+                    <div class='tabbable'>
+                        <ul class='nav nav-tabs nav-tabs-centered'>
+                            <li>
+                                <a href="{:url('index')}">
+                                    <i class='fa fa-check-circle'></i>
+                                    已审核
+                                </a>
+                            </li>
+                            <li  class='active'>
+                                <a href="{:url('unchecked')}">
+                                    <i class='fa fa-clock-o text-red'></i>
+                                    待审核
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{:url('reedit')}">
+                                    <i class='fa fa-edit'></i>
+                                    未通过
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{:url('recycleBin')}">
+                                    <i class='fa fa-recycle'></i>
+                                    回收站
+                                </a>
+                            </li>
+                        </ul>
+                    </div>                     
+                    <div class="pull-left">
+                        <a href="javascript:void(0);"  onclick="recycle()" class='btn btn-success' style='margin-bottom:15px'>
+                            批量通过
+                            <i class='fa fa-check'></i>
+                        </a>
+                        <a href="javascript:void(0);"  onclick="jiadelete()" class='btn btn-danger' style='margin-bottom:15px'>
+                            直接删除
+                            <i class='fa fa-close'></i>
+                        </a>	
+                    </div>
+                    <div class="pull">
+                        <form class='navbar-form navbar-right' role='search' method='post' action="{:url('unchecked')}">
+                            <div class='form-group'>      
+                                <input class='form-control' placeholder='根据姓名查询' type='text' name="name" value="{$Think.request.name}"/>&nbsp;	
+                            </div>
+                            <div class='form-group'>										
+                                <input class='form-control' placeholder='根据电话查询' type='text' name="phone" value="{$Think.request.phone}"/>&nbsp;
+                            </div>                           
+                            <button class='btn btn-success'  type='submit'>查询</button>
+                        </form>
+                    </div>
+                    <div class="clearfix"></div>
+
+                </div>
+            </div>
+            <div class='box-content box-no-padding'>
+                <div class='responsive-table'>
+                    <div class='scrollable-area'>
+
+                        <table id="checkList" class='data-table table table-bordered table-striped' style='margin-bottom:0;'>
+                            <thead>
+                                <tr>
+                                    <th class="text-center"><input type="checkbox" id="check" onclick="CheckAll('checkList')"></th>			
+                                    <th class="text-center"><a href="javascript:sortBy('id','{$sort}','index')" title="按照编号排列 ">编号</a></th>
+                                    <th class="text-center">头像</th> 
+                                    <th class="text-center">姓名</th>
+                                    <th class="text-center">手机号码</th>
+                                    <th class="text-center">身份证号</th>
+                                    <th class="text-center">公司名称</th>
+                                    <th class="text-center">营业执照</th>
+                                    <th class="text-center">营业执照</th>
+                                    <th class="text-center">创建时间</th>
+                                    <th class="text-center">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                {volist name='lists' id='vo'}
+                                <tr>
+                                    <td class="text-center"><input id="cb{$vo.id}" type="checkbox" name="key"  value="{$vo.id}"></td>
+                                    <td class="text-center">{$vo.id}</td>
+                                    <td class="text-center" style="padding:0;vertical-align: middle;">
+                                        <a href="javascript:void(0);"  onclick="bigpic({$vo['id']})">
+                                            <img  src="{empty name='vo.thumb'}/static/Images/admin.png{else /}{$vo.thumb}{/empty}" width="30" height="30" />
+                                        </a>
+                                    </td>
+                                    <td class="text-center">{$Think.request.name?str_replace($Think.request.name, '<font color=red>'.$Think.request.name.'</font>', $vo['name']):$vo['name']}</td>
+                                    <td class="text-center">{$Think.request.phone?str_replace($Think.request.phone, '<font color=red>'.$Think.request.phone.'</font>', $vo['phone']):$vo['phone']}</td>
+                                    <td class="text-center">{$vo['id_card']}</td>
+                                    <td class="text-center">{$vo['company']}</td>
+                                    <td class="text-center">{$vo['company_number']}</td>
+                                    <td class="text-center" style="padding:0;vertical-align: middle;">
+                                        <a href="javascript:void(0);"  onclick="companypic({$vo['id']})">
+                                            <img  src="{$vo.company_thumb}" width="30" height="30" />
+                                        </a>
+                                    </td>
+                                    <td class="text-center">{$vo.create_time|date="Y-m-d H:i:s",###}</td>
+                                    <td class="text-center">                                  
+                                        <a class='btn btn-default btn-xs' href="{:url('view',['id'=>$vo['id'],'page'=>$Think.get.page])}" title="预览">
+                                            <i class='fa fa-eye'></i> 
+                                        </a>
+                                        <a class='btn btn-success btn-xs' href="javascript:void(0);"  onclick="recycle({$vo['id']})" title="通过审核">
+                                            <i class='fa fa-check'></i> 
+                                        </a>
+                                        <a class='btn btn-warning btn-xs'  href="{:url('fahuiedit',['id'=>$vo['id'],'page'=>$Think.get.page])}" data-toggle="modal" data-target="#fahuiedit"  title="不通过 ">
+                                            <i class='fa fa-ban'></i> 
+                                        </a>
+                                        <a class='btn btn-danger btn-xs' href="javascript:void(0);"  onclick="jiadelete({$vo['id']})" title="直接删除">
+                                            <i class='fa fa-close'></i> 
+                                        </a>                                         
+                                    </td>
+                                </tr>
+                                {/volist}                             
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div> 
+    </div>
+</div>
+<!-- 分页开始 -->        
+<div class='row'>
+    <div class='col-sm-12 box box-nomargin text-center'>
+        {$lists->render()}
+    </div>
+</div>
+<!-- 模态对话框 -->  
+<div class='modal fade' id='fahuiedit'  tabindex='-1'>
+    <div class='modal-dialog'>
+        <div class='modal-content'>  </div>
+    </div>
+</div>  

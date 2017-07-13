@@ -1,0 +1,106 @@
+<div class='row'>
+    <div class='col-sm-12'>
+        <div class='box' >
+            <div class='box-header blue-background' style='margin-top:10px;'>
+                <div class='title'> 成员编辑</div>
+
+                <div class='actions'>
+                    <button class="btn btn-sm btn-primary "  onclick="javascript:window.location.href = '__URL__/index?page={$Think.get.page}'">
+                        返回列表
+                        <i class="icon-reply icon-only"></i>
+                    </button>
+                    <a class="btn box-remove btn-xs btn-link" href="#"><i class='fa fa-times'></i>
+                    </a>
+                    <a class="btn box-collapse btn-xs btn-link" href="#"><i></i>
+                    </a>
+                </div>
+            </div>
+            <div class='box-content'>
+                <form class='form form-horizontal validate-form' method="post" enctype="multipart/form-data" action="{:url('edit')}" >
+                    {:token()}
+                    <input type="hidden" value="{$list.id}" name="id"/>
+                    <input type="hidden" id="page" name="page" value="{$Think.get.page}" />
+                    <input type="hidden"  name="company_id" value="{$list.company_id}" />
+                    <input type="hidden"  name="phone" value="{$list.phone}" />
+                    <div class='form-group'>
+                        <label class='col-md-3 control-label' for='validation_name'>真实姓名:</label>
+                        <div class='col-md-5 controls'>
+                            <input class='form-control' data-rule-minlength='2' id='validation_name' name='name' placeholder='真实姓名' type='text' value="{$list.name}"/>
+                        </div>
+                    </div> 
+                    <div class='form-group'>
+                        <label class='col-md-3 control-label' for='validation_image'>个人头像:</label>
+                        <div class='col-md-5 controls'>
+                            <div class='userheadimg'>
+                                <img id="loc_img" class="img-responsive" src="{$list.thumb}" />
+                                <input id="pstimg" title="个人头像" type='file' name="image" class="fileInput" >
+                            </div>
+                        </div>	
+                    </div>                    
+                    <div class='form-group'>
+                        <label class='col-md-3 control-label' >手机号码:</label>
+                        <div class='col-md-5 controls'>
+                            <input class='form-control'  type='text' disabled value="{$list.phone}" />
+                        </div>
+                    </div>
+                    <div class='form-group'>
+                        <label class='col-md-3 control-label' for='validation_password'>个人密码:</label>
+                        <div class='col-md-5 controls'>
+                            <input class='form-control' data-rule-minlength='6'   id='validation_password' name='password'
+                                   data-rule-required='true'   type='password' value="{$list.password}"/>
+                        </div>
+                    </div>
+                    <div class='form-group'>
+                        <label class='control-label col-md-3' for='validation_rpassword'>确认密码:</label>
+                        <div class='col-sm-5 controls'>
+                            <input class='form-control' data-rule-equalTo='#validation_password'  id='validation_rpassword' name='rpassword' placeholder='请确认您的密码' type='password' value="{$list.password}" />
+                        </div> 
+                    </div>                     
+                    <div class='form-group'>
+                        <label class='col-md-3 control-label' for='validation_id_card'>身份证号:</label>
+                        <div class='col-md-5 controls'>
+                            <input class='form-control' id='validation_id_card' name="id_card" data-rule-isPattern="true" placeholder='请填写您的身份证号' type='text' value="{$list.id_card}"/>
+                        </div>
+                    </div>
+                    <div class='form-group'>
+                        <label class='col-md-3 control-label' >所属公司:</label>
+                        <div class='col-md-5 controls'>
+                            <input class='form-control'  disabled  type='text'  value="{$list.company}"/>
+                        </div>
+                    </div>
+                    <div class='form-group'>
+                        <label class='col-md-3 control-label' >营业执照:</label>
+                        <div class='col-md-5 controls'>
+                            <input class='form-control' disabled placeholder='请填写您公司的营业执照号码' type='text' value="{$list.company_number}"/>
+                        </div>
+                    </div>
+                    <div class='form-group'>
+                        <label class='col-md-3 control-label' for='validation_image'>营业执照:</label>
+                        <div class='col-md-5 controls'>
+                            <div class='userheadimg'>
+                                <img id="loc_img" class="img-responsive" src="{$list.company_thumb}" />
+                            </div>
+                        </div>	
+                    </div>  
+                    <div class='form-group'>
+                        <label class='col-md-3 control-label' for='validation_money'>个人余额:</label>
+                        <div class='col-md-5 controls'>
+                            <input id='validation_money' class='form-control' type="text" name="money" placeholder='余额'
+                                   data-rule-number='true' value="{$list.money}" />
+                        </div>
+                    </div>	
+                    <div class='form-actions' style='margin-bottom:0'>
+                        <div class='row'>
+                            <div class='col-sm-9 col-sm-offset-3'>
+                                <button class='btn btn-primary' type='submit'>
+                                    提交
+                                </button>
+                                <a class='btn' style="margin-left:20px;" onclick="history.go(-1)">返回</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>                  

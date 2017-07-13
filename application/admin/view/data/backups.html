@@ -1,0 +1,98 @@
+<div class='row'>
+    <div class='col-sm-12'>  
+
+        <div class='box bordered-box orange-border' style='margin-top:10px;'>
+            <div class='box-header orange-background'>
+                <div class='title'>数据库备份</div>
+                <div class='actions'>
+                    <a class="btn box-remove btn-xs btn-link" href="#"><i class='fa fa-times'></i>
+                    </a>
+                    <a class="btn box-collapse btn-xs btn-link" href="#"><i></i>
+                    </a>
+                </div>
+            </div>
+            <div class='box'>
+                <div class='box-content'>                    
+                    <div class="pull-left">
+                        <a id="export" class='btn btn-info' style='margin-bottom:5px'>
+
+                            <i class='fa fa fa-copy'></i> 立即备份
+                        </a>
+                        <a class='btn btn-info' url="{:url('optimize')}" id="optimize"  style='margin-bottom:5px'>
+
+                            <i class='fa fa-rocket'></i> 优化表
+                        </a>
+                        <a class='btn btn-info' url="{:url('repair')}" id="repair"  style='margin-bottom:5px'>
+
+                            <i class='fa fa-wrench'></i> 修复表
+                        </a>                     
+                    </div>
+                    <div class="pull-right"></div>
+                    <div class="clearfix"></div>
+
+                </div>
+            </div>
+            <div class='box-content box-no-padding'>
+                <form id="export-form" method="post" action="{:url('export')}">
+                    <div class='responsive-table'>
+                        <div class='scrollable-area'>
+
+                            <table id="checkList" class='data-table table table-bordered table-striped' style='margin-bottom:0;'>
+                                <thead>
+                                    <tr>
+                                        <th class="text-center"><input type="checkbox" checked="chedked" id="check"  onclick="CheckAll('checkList')"></th>	
+                                        <th class="text-center">表名</th>
+                                        <th class="text-center">数据量</th> 
+                                        <th class="text-center">数据大小</th>                                    
+                                        <th class="text-center">创建时间</th>
+                                        <th class="text-center">备份状态</th>
+                                        <th class="text-center">操作</th>
+
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {notempty name="data"}                    
+                                    {volist name="data" id="vo"}
+                                    <tr>
+                                        <td class="text-center">
+                                            <input  type="checkbox" checked="chedked" name="ids[]" value="{$vo.name}">
+                                        </td>
+                                        <td class="text-center">{$vo.name}</td>
+                                        <td class="text-center">【{$vo.rows}】条记录</td>                                    
+                                        <td class="text-center">{$vo.data_length|format_bytes}</td>
+                                        <td class="text-center">{$vo.create_time}</td>
+                                        <td class="text-center" id="info">等待备份...</td>
+                                        <td class="text-center">
+
+                                            <a href="{:url('optimize',['ids'=>$vo['name']])}" title="优化表">
+
+                                                <span class="btn btn-xs btn-warning">
+                                                    <i class="ace-icon fa fa-rocket "> 优化表</i>
+                                                </span>
+                                            </a>
+
+
+                                            <a href="{:url('repair',['ids'=>$vo['name']])}" >
+                                                <span class="btn btn-xs btn-info">
+                                                    <i class="ace-icon fa fa-wrench"> 修复表</i>
+                                                </span>
+                                            </a>
+
+
+                                        </td>
+                                    </tr>
+                                    {/volist}
+                                    {else /}
+                                <td colspan="7" class="text-center"> 暂未发现数据库表! </td>
+                                {/notempty}
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div> 
+    </div>
+</div>

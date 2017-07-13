@@ -1,0 +1,123 @@
+<div class='row'>
+    <div class='col-sm-12'>  
+
+        <div class='box bordered-box orange-border' style='margin-top:10px;'>
+            <div class='box-header orange-background'>
+                <div class='title'>角色管理</div>
+                <div class='actions'>
+                    <a class="btn box-remove btn-xs btn-link" href="#"><i class='fa fa-times'></i>
+                    </a>
+                    <a class="btn box-collapse btn-xs btn-link" href="#"><i></i>
+                    </a>
+                </div>
+            </div>
+            <div class='box'>
+                <div class='box-content'>
+                    {if condition="checkPath('auth/roleAdd')"}
+                    <a href="{:url('roleAdd',['page'=>$Think.get.page])}" class='btn btn-info' style='margin-bottom:5px'>
+                        新增
+                        <i class='fa fa-plus-square'></i>
+                    </a>
+                    {/if}
+                    {if condition="checkPath('auth/roleDelete')"}
+                    <a href="javascript:void(0);"  onclick="del()" class='btn btn-info' style='margin-bottom:5px'>
+                        删除
+                        <i class='fa fa-remove'></i>
+                    </a>
+                    {/if}
+                </div>
+            </div>
+            <div class='box-content box-no-padding'>
+                <div class='responsive-table'>
+                    <table id="checkList" class='data-table table table-bordered table-striped' style='margin-bottom:0;'>
+                        <thead>
+                            <tr>
+                                <th class="text-center"><input type="checkbox" id="check" onclick="CheckAll('checkList')"></th>			
+                                <th class="text-center">编号</th>
+                                <th class="text-center">角色名称</th>
+                                <th class="text-center">角色描述</th>
+                                <th class="text-center">状态</th>
+                                <th class="text-center">操作</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            {volist name='lists' id='vo'}
+                            <tr>
+                                <td class="text-center">
+                                    {eq name="$vo.id" value="1"}★{else/}<input id="cb{$vo.id}" type="checkbox" name="key"  value="{$vo.id}">{/eq} 
+                                </td>
+                                <td class="text-center">{$vo.id}</td>
+                                <td class="text-center">{$vo.name}</td>
+                                <td class="text-center">{$vo.remark}</td>
+                                <td class="text-center">
+                                    {eq name="$vo.id" value="1"}{$vo['status']|getStatus}{else/}
+                                    <a id="status{$vo['id']}"  title="是否启用" href="javascript:void(0);"  onclick="jingyong({$vo['id']})">
+                                        {$vo['status']|getStatus}
+                                    </a>
+                                    {/eq}
+                                </td>
+
+                                <td class="text-center">
+                                    {eq name="$vo.id" value="1"}
+                                    <span class="btn btn-xs btn-warning disabled">
+                                        <i class="ace-icon fa fa-shield "></i>
+                                    </span>
+                                    <span class="btn btn-xs btn-info disabled">
+                                        <i class="ace-icon fa fa-edit"></i>
+                                    </span>
+                                    <span class="btn btn-xs btn-danger disabled">
+                                        <i class="ace-icon fa fa-trash-o"></i>
+                                    </span>
+                                    {else/}
+
+                                    {if condition="checkPath('Auth/authorize',['id'=>$vo['id'],'name'=>$vo['name']])"}
+                                    <a href="{:url('authorize',['id'=>$vo['id'],'name'=>$vo['name']])}" title="权限设置">
+
+                                        <span class="btn btn-xs btn-warning">
+                                            <i class="ace-icon fa fa-shield "></i>
+                                        </span>
+                                    </a> 
+
+                                    {/if}
+                                    {if condition="checkPath('Auth/roleEdit',['id'=>$vo['id']])"}
+                                    <a href="{:url('roleEdit',['id'=>$vo['id'],'page'=>$Think.get.page])}">
+                                        <span class="btn btn-xs btn-info">
+                                            <i class="ace-icon fa fa-edit"></i>
+                                        </span>
+                                    </a>
+
+                                    {/if}
+                                    {if condition="checkPath('Auth/roleDelete',['id'=>$vo['id']])"}
+                                    <a href='javascript:void(0)' onclick="del({$vo.id})" >
+                                        <span class="btn btn-xs btn-danger">
+                                            <i class="ace-icon fa fa-trash-o"></i>
+                                        </span>
+                                    </a>
+                                    {/if}
+                                    {/eq}
+                                </td>
+
+                            </tr>
+                            {/volist}
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+        </div> 
+    </div>
+</div>
+<!-- 分页开始 -->        
+<div class='row'>
+    <div class='col-sm-12 box box-nomargin text-center'>
+        {$lists->render()}
+    </div>
+</div>
+
+
+
+

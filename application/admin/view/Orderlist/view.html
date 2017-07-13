@@ -1,0 +1,93 @@
+<div class='row'>
+    <div class='col-md-12'>
+        <div class='box'>
+            <div class='box-header orange-background' style='margin-top: 20px;'>
+                <div class='title'>订单 <span class="text-contrast">{$order.orderno}</span> 详情</div>
+            </div>
+            <div class='box-content'>
+                <table class='table table-hover'>
+                    <thead>
+                        <tr>
+                            <th class="text-center">模型ID</th>
+                            <th class="text-center">模型名称</th>
+                            <th class="text-center">模型类型</th>
+                            <th class="text-center">模型图</th>
+                            <th class="text-center">模型价格</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {volist id="mx" name="models"}
+                        <tr >
+                            <td class="text-center" style="padding:0;vertical-align: middle;">{$mx.model_id}</td>
+                            <td class="text-center" style="padding:0;vertical-align: middle;"><a class="text-contrast" href="" >{$mx.model_name}</a></td>
+                            <td class="text-center" style="padding:0;vertical-align: middle;">{eq name="mx.type_id" value="1"}3D模型{else}2D模型{/eq}</td>
+                            <td class="text-center" style="padding:0;vertical-align: middle;"><img alt="" src="{$mx.thumb}" width="60" 	height="60" /></td>
+                            <td class="text-center text-contrast" style="padding:0;vertical-align: middle;">{$mx.model_price}￥</td>
+                        </tr>
+                        {/volist}
+                        <tr >
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="text-center"><h3 class='subtotal contrast'>Total:{$order.totalprice}￥</h3></td>
+                        </tr>	
+                    </tbody>
+                </table>
+
+                <hr class='hr-normal'>
+
+                <div class='row'>
+                    <div class='col-md-2 col-md-offset-1'>
+                        <div class='lead'><br>
+                            <i class='fa fa-inbox contrast'></i>
+                            订单信息
+                        </div>
+                    </div>
+                    <div class='col-md-3 col-md-offset-6'>
+                        <address>
+                            <strong>订单创建时间: <span class="text-contrast">{$order.create_time|date="Y-m-d H:i:s",###}</span></strong>
+                            <br><br> 
+                            <strong>订单状态: {eq name="order.status" value="1"}<span class="text-contrast">未支付</span>{/eq}{eq name="order.status" value="2"}<span class="text-success">已支付</span>{/eq}{eq name="order.status" value="-2"}<span class="text-info">已失效</span>{/eq}</strong>
+                            <br><br> 
+                            {eq name="order.status" value="2"}
+                            <strong>支付金额: <span class="text-contrast">{$order['jifen']} 积分</span></strong>
+                            <br><br>
+                            <strong>支付时间: <span class="text-contrast">{$order.pay_time}</span>
+                            {/eq}
+                        </address>
+                    </div>
+                </div>
+                <hr class='hr-normal'>
+                <div class='row'>
+                    <div class='col-md-2 col-md-offset-1'>
+                        <div class='lead'><br>
+                            <i class='fa fa-user contrast'></i>
+                            客户信息
+                        </div>
+                    </div>
+                    <div class='col-md-3 col-md-offset-6'>
+                        <address>
+                            <strong>姓名: <span  class="text-contrast">{$user.name}</span></strong>
+                            <br>
+                            <br>
+                            <strong>电话: <span  class="text-contrast">{$user.phone}</span></strong>
+                            <br>
+                            <br>
+                        </address>
+                    </div>
+                </div>
+
+                <div class='form-actions' style='margin-bottom:0'>
+                    <div class='row'>
+                        <div class='col-sm-offset-9'>
+                            <a class='btn' onclick="history.go(-1)">确定</a>
+                            <a class='btn' style="margin-left:50px;" onclick="history.go(-1)">返回</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

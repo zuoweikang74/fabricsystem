@@ -1,0 +1,145 @@
+<div class='row'>
+    <div class='col-sm-12'>
+        <div class='page-header'>
+            <h1 class='pull-left' style='margin-left:40px;'>
+                <i class='fa fa-user'></i>
+                <span>个人信息</span>
+            </h1>
+            <div class='pull-right'>
+                <ul class='breadcrumb'>
+                    <li>
+                        <a href='index.html'>
+                            <i class='fa fa-bar-chart-o'></i>
+                        </a>
+                    </li>
+                    <li class='separator'>
+                        <i class='fa fa-angle-right'></i>
+                    </li>
+
+                    <li class='separator'>
+                        <i class='fa fa-angle-right'></i>
+                    </li>
+                    <li class='active'>个人信息</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class='row'>
+    <div class='col-sm-3 col-lg-2'>
+        <div class='box'>
+            <form id="imgform" method="post" action="{:url('uploadface')}" enctype="multipart/form-data" class="form form-horizontal validate-form">
+                <input type="hidden" name="id" value="{$user.id}" />
+                <div class='box-content userheadimg'>
+                    <img id='touxiang' class="img-responsive" src="{empty name='user.thumb'}/static/Images/admin.png{else /}{$user.thumb}{/empty}" />
+                    <input id="pstimg" title='个人头像' type='file' name="file" class="fileInput" >		
+                </div>
+                <div class='lead text-center' >个人头像</div>
+            </form>
+        </div>
+    </div>
+    <div class='col-sm-9 col-lg-10'>
+        <div class='box'>
+            <div class='box-content box-double-padding'>
+                <fieldset>
+                    <div class='col-sm-4'>
+                        <div class='lead'>
+                            <i class='fa fa-info-circle contrast'></i>
+                            登录信息
+                        </div>
+                    </div>
+                    <div class='col-sm-8'>                         
+                        <address>                          
+                            <span><strong>账号创建时间：</strong>&nbsp;&nbsp;{$user.create_time|date="Y-m-d H:i:s",###}</span><br><br>
+                            <span><strong>上次登陆时间：</strong>&nbsp;&nbsp;{$user.last_login_time|date="Y-m-d H:i:s",###}</span><br><br> 
+                            <span><strong>上次登陆地址：</strong>&nbsp;&nbsp;{:long2ip($user.last_login_ip)}</span>                                                                          
+                        </address>
+                    </div>
+                </fieldset>
+                <hr class='hr-normal'>                   
+                <form class='form form-horizontal validate-form' method="post" style='margin-bottom: 0;' action="{:url('userProfile')}">
+                    {:token()}
+                    <input type="hidden" name="id" value="{$user.id}" />
+                    <fieldset>
+                        <div class='col-sm-4'>
+                            <div class='lead'>
+                                <i class='fa fa-github text-contrast'></i>
+                                账户信息
+                            </div>
+                            <!--<small class='text-muted'>请修改容易记忆的密码！</small>
+                            --></div>
+                        <div class='col-sm-6'>
+                            <div class='form-group'>
+                                <label class='control-label col-sm-4 col-md-2' for='validation_email'>电子邮箱：</label>
+                                <div class='col-sm-8 controls'>
+                                    <input class='form-control' id='validation_email' name='email' data-rule-email='true'  placeholder='E-mail' type='text' value="{$user.email}">
+                                </div>
+                            </div>
+                            <hr class='hr-normal'>
+                            <div class='form-group'>
+                                <div class='controls'>
+                                    <div class='checkbox'>
+                                        <label class='control-label col-sm-4 col-md-2'>
+                                            <input data-target='#change-password' data-toggle='collapse' id='changepasswordcheck' type='checkbox' value='option1'>
+                                            修改密码?
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='collapse' id='change-password'>
+                                <div class='form-group'>
+                                    <label class='control-label col-sm-4 col-md-2' for='validation_pwd'>修改密码：</label>
+                                    <div class='col-sm-8 controls'>
+                                        <input class='form-control' id='validation_pwd' name='password' placeholder='Password' data-rule-minlength='4' data-rule-required='true'  type='password' value="{$user.password}">
+                                    </div>
+                                </div>
+                                <div class='form-group'>
+                                    <label class='control-label col-sm-4 col-md-2' for='validation_repwd'>确认密码：</label>
+                                    <div class='col-sm-8 controls'>
+                                        <input class='form-control' id='validation_repwd' name='rpassword' data-rule-equalTo='#validation_pwd'  placeholder='Password confirmation' type='password' value="{$user.password}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <hr class='hr-normal'>
+                    <fieldset>
+                        <div class='col-sm-4'>
+                            <div class='lead'>
+                                <i class='fa fa-user text-contrast'></i>
+                                个人信息
+                            </div>
+                            <!--<small class='text-muted'>请务必填写真实有效信息</small>
+                            --></div>
+                        <div class='col-sm-6'>
+                            <div class='form-group'>
+                                <label class='control-label col-sm-4 col-md-2' for='validation_name'>真实姓名：</label>
+                                <div class='col-sm-8 controls'>
+                                    <input class='form-control' id='validation_nickname' name='name' placeholder='请填写真实姓名' type='text' value="{$user.name}">
+                                </div>
+                            </div>
+                            <div class='form-group'>
+                                <label class='control-label col-sm-4 col-md-2' for='validation_phone'>联系电话：</label>
+                                <div class='col-sm-8 controls'>
+                                    <input class='form-control' id='validation_phone'  data-rule-isMobile="true" disabled type='text' value="{$user.phone}">
+                                </div>
+                            </div>
+                            <hr class='hr-normal'>
+                        </div>
+                    </fieldset> 
+                    <div class='form-actions' style='margin-bottom: 0;'>
+                        <div class='row'>
+                            <div class='col-sm-8 col-sm-offset-4'>
+                                <button class='btn btn-primary' type='submit'>
+                                    <i class='fa fa-floppy-o'></i>
+                                    保存
+                                </button>
+                                <a class='btn' style="margin-left:40px;" onclick="history.go(-1)">返回</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

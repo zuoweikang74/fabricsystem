@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang='en'>
+    <head>
+        <title>绚试™ MTM管理系统(服装行业量身定制)</title>
+        {include file="public/meta" /}
+    </head>
+    <body class='contrast-red'>
+        {include file="public/header" /}
+        {__CONTENT__}
+        {include file="public/footer" /}    
+    </section>
+</div>
+<!-- / jquery [required] -->
+{include file="public/bottomjs" /}
+<script>
+    var u = $(".active").parent('ul');
+    var uc = u.attr("class");//
+    if (uc == 'nav nav-stacked') {
+        u.prev().attr("class", "dropdown-collapse in");
+        u.show();
+    }
+
+</script>
+<script type="text/javascript">
+    $(function () {
+        $("#pstimg").on('change', function () {
+            $("#imgform").submit();
+        })
+    });
+</script> 
+<script>
+//调用示例
+    layer.photos({
+        photos: '.layer-photos-demo'
+        , anim: 2 //0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）
+    });
+</script>
+</body>
+</html>

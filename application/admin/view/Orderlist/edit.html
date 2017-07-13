@@ -1,0 +1,79 @@
+<div class='row'>
+    <div class='col-sm-12'>
+        <div class='box'>
+            <div class='box-header blue-background' style='margin-top: 10px;'>
+                <div class='title'>修改订单列表 {$list.orderno}</div>
+                <div class='actions'>
+                    <button class="btn btn-sm btn-primary "  onclick="javascript:window.location.href = '__URL__/index?page={$Think.get.page}'">
+                        返回列表
+                        <i class="icon-reply icon-only"></i>
+                    </button>
+                    <a class="btn box-remove btn-xs btn-link" href="#"><i class='fa fa-times'></i>
+                    </a>
+                    <a class="btn box-collapse btn-xs btn-link" href="#"><i></i>
+                    </a>
+                </div>
+            </div>
+            <div class='box-content'>
+                <form class='form form-horizontal validate-form' method="post" enctype="multipart/form-data" action="{:url('edit')}" >
+                    {:token()}
+                    <input type="hidden" value="{$list.id}" name="id"/>
+                    <input type="hidden" id="page" name="page" value="{$Think.get.page}" />
+                    <div class='form-group'>
+                        <label class='col-md-3 control-label' >订单编号:</label>
+                        <div class='col-md-5 controls'>
+                            <input class='form-control' readonly type='text' value="{$list.orderno}" />
+                        </div>
+                    </div>
+                    <div class='form-group'>
+                        <label class='col-md-3 control-label' >客户姓名:</label>
+                        <div class='col-md-5 controls'>
+                            <input class='form-control' readonly type='text' value="{$list.fsscustomer.name}" />
+                        </div>
+                    </div>
+                    <div class='form-group'>
+                        <label class='col-md-3 control-label' for='validation_totalprice'>订单总价:</label>
+                        <div class='col-md-5 controls'>
+                            <div class='input-group'>
+                                <input class='form-control' 	data-rule-required='true' id='validation_totalprice' name='totalprice'
+                                       placeholder='订单总价' type='text' value="{$list.totalprice}" />
+                                <span class='input-group-addon'>¥</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='form-group'>
+                        <label class='col-md-3 control-label' >联系电话:</label>
+                        <div class='col-md-5 controls'>
+                            <input class='form-control' readonly placeholder='联系电话' type='text' value="{$list.fsscustomer.phone}" />
+                        </div>
+                    </div>                   
+                    <div class='form-group has-warning'>
+                        <label class='col-md-3 control-label' for='validation_status'>订单状态</label>
+                        <div class='col-md-5 controls'>
+                            <select name="status" class='form-control ' >
+                                <option value="1" {eq name="list.status" value="1"}selected{/eq}>未支付</option>
+                                <option value="2" {eq name="list.status" value="2"}selected{/eq}>已支付</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class='form-group'>
+                        <label class='col-md-3 control-label' >订单备注:</label>
+                        <div class='col-md-5 controls'>
+                            <textarea  class="form-control" name="message"  rows="3">{$list.message}</textarea>
+                        </div>
+                    </div> 
+                    <div class='form-actions' style='margin-bottom:0'>
+                        <div class='row'>
+                            <div class='col-sm-9 col-sm-offset-3'>
+                                <button class='btn btn-primary' type='submit'>
+                                    提交
+                                </button>
+                                <a class='btn' style="margin-left:20px;" onclick="history.go(-1)">返回</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,212 @@
+<div class='row'>
+    <div class='col-sm-12'>
+        <div class='box' >
+            <div class='box-header blue-background' style='margin-top:10px;'>
+                <div class='title'> 面料编辑</div>
+
+                <div class='actions'>
+                    <button class="btn btn-sm btn-primary "  onclick="javascript:window.location.href = '__URL__/index?page={$Think.get.page}'">
+                        返回列表
+                        <i class="icon-reply icon-only"></i>
+                    </button>
+                    <a class="btn box-remove btn-xs btn-link" href="#"><i class='fa fa-times'></i>
+                    </a>
+                    <a class="btn box-collapse btn-xs btn-link" href="#"><i></i>
+                    </a>
+                </div>
+            </div>
+            <div class='box-content'>
+                <form class='form form-horizontal validate-form' method="post" enctype="multipart/form-data" action="{:url('edit')}" >
+                    {:token()}
+                    <input type="hidden" value="{$list.id}" name="id"/>
+                    <input type="hidden" id="page" name="page" value="{$Think.get.page}" />
+                    <div class='form-group'>
+                        <label class='control-label col-md-3' for='validation_name'>面料名称:</label>
+                        <div class='col-md-5 controls'>
+                            <input class='form-control' data-rule-minlength='2' data-rule-required='true' id='validation_name' name='name'  type='text' value="{$list.name}"/>
+                        </div>
+                    </div>
+                    <div class='form-group'>
+                        <label class='control-label col-md-3' for='validation_mno'>面料编号:</label>
+                        <div class='col-md-5 controls'>
+                            <input class='form-control' data-rule-minlength='2' data-rule-required='true' id='validation_name' name='mno'  type='text' value="{$list.mno}"/>
+                        </div>
+                    </div>                     
+                    <div class='form-group'>
+                        <label class='col-md-3 control-label'>面料图片:</label>
+                        <div class='col-md-5 controls'>
+                            <div class='userheadimg'>
+                                <img id="loc_img" class="img-responsive" src="{$list.thumb}" />
+                            </div>
+                        </div>	
+                    </div>
+                    <div class='form-group'>
+                        <label class='col-md-3 control-label' for='validation_price'>面料售价:</label>
+                        <div class='col-md-5 controls'>
+                            <input id='validation_price' class='form-control' type="text" name="price" placeholder='面料价格'
+                                   data-rule-number='true' value="{$list.price}" />
+                        </div>
+                    </div>
+<!--                    <div class='form-group'>
+                        <label class='col-md-3 control-label' for='validation_jinjia'>面料进价:</label>
+                        <div class='col-md-5 controls'>
+                            <input id='validation_jinjia' class='form-control' type="text" name="jinjia" placeholder='面料进价'
+                                   data-rule-number='true' value="{$list.jinjia}" />
+                        </div>
+                    </div>   -->
+                    <div class='form-group'>
+                        <label class='col-md-3 control-label'>面料工艺:</label>
+                        <div class='col-md-5'>
+                            {volist id="tech" name="techs"}
+                            <div class='checkbox fa-pull-left'>
+                                <label> 
+                                    <input type="checkbox" name="tech[]" data-rule-required='true' value="{$tech.id}" {volist name="list.techs" id="vkw"} {eq name="vkw.id" value="$tech.id"}checked="checked"{/eq} {/volist} /> 
+                                           {$tech.name}&nbsp; &nbsp;
+                                </label>
+                            </div>
+                            {/volist}
+                        </div>
+                    </div>
+                    <div class='form-group'>
+                        <label class='col-md-3 control-label'>面料颜色:</label>
+                        <div class='col-md-5'>
+                            {volist id="color" name="colors"}
+                            <div class='checkbox fa-pull-left'>
+                                <label> 
+                                    <input type="checkbox" name="color[]" data-rule-required='true' value="{$color.id}" {volist name="list.colors" id="vkw"} {eq name="vkw.id" value="$color.id"}checked="checked"{/eq} {/volist} /> 
+                                           {$color.name}&nbsp; &nbsp;
+                                </label>
+                            </div>
+                            {/volist}
+                        </div>
+                    </div>
+                    <div class='form-group'>
+                        <label class='col-md-3 control-label'>图案类型:</label>
+                        <div class='col-md-5'>
+                            {volist id="pattern" name="patterns"}
+                            <div class='checkbox fa-pull-left'>
+                                <label> 
+                                    <input type="checkbox" name="pattern[]" data-rule-required='true' value="{$pattern.id}" {volist name="list.patterns" id="vkw"} {eq name="vkw.id" value="$pattern.id"}checked="checked"{/eq} {/volist} /> 
+                                           {$pattern.name}&nbsp; &nbsp;
+                                </label>
+                            </div>
+                            {/volist}
+                        </div>
+                    </div>
+                    <div class='form-group'>
+                        <label class='col-md-3 control-label'>适用类型:</label>
+                        <div class='col-md-5'>
+                            {volist id="purpose" name="purposes"}
+                            <div class='checkbox fa-pull-left'>
+                                <label> 
+                                    <input type="checkbox" name="purpose[]" data-rule-required='true' value="{$purpose.id}" {volist name="list.purposes" id="vkw"} {eq name="vkw.id" value="$purpose.id"}checked="checked"{/eq} {/volist} /> 
+                                           {$purpose.name}&nbsp; &nbsp;
+                                </label>
+                            </div>
+                            {/volist}
+                        </div>
+                    </div>   
+                    <div class='form-group'>
+                        <label class='col-md-3 control-label'>特殊处理:</label>
+                        <div class='col-md-5'>
+                            {volist id="deal" name="deals"}
+                            <div class='checkbox fa-pull-left'>
+                                <label> 
+                                    <input type="checkbox" name="deal[]" data-rule-required='true' value="{$deal.id}" {volist name="list.deals" id="vkw"} {eq name="vkw.id" value="$deal.id"}checked="checked"{/eq} {/volist} /> 
+                                           {$deal.name}&nbsp; &nbsp;
+                                </label>
+                            </div>
+                            {/volist}
+                        </div>
+                    </div>  
+                    <div class='form-group'>
+                        <label class='col-md-3 control-label'>面料类型:</label>
+                        <div class='col-sm-5'>
+                            <select class='form-control'  name="type_id">
+                                {volist name="types" id="zx"}
+                                <option value="{$zx.id}" {eq name="zx.id" value="$list['type_id']"}selected{/eq}>{$zx.name}</option>
+                                {/volist}
+                            </select>
+                        </div>
+                    </div>
+                    <div class='form-group'>
+                        <label class='col-md-3 control-label' for='validation_zworganization'>织物组织:</label>
+                        <div class='col-md-5 controls'>
+                            <input class='form-control' id="validation_zworganization"  type='text' name="zworganization" value="{$list.zworganization}"/> 
+                        </div>	
+                    </div>
+                    <div class='form-group'>
+                        <label class='col-md-3 control-label' for='validation_weight'>面料克重:</label>
+                        <div class='col-md-5 controls'>
+                            <input class='form-control' id="validation_weight" type='text' name="weight" value="{$list.weight}"/> 
+                        </div>	
+                    </div>
+                    <div class='form-group'>
+                        <label class='col-md-3 control-label' for='validation_element'>面料成分:</label>
+                        <div class='col-md-5 controls'>
+                            <input class='form-control' id="validation_element" type='text' name="element" value="{$list.element}" /> 
+                        </div>	
+                    </div>
+                    <div class='form-group'>
+                        <label class='col-md-3 control-label' for='validation_larghezza'>面料门幅:</label>
+                        <div class='col-md-5 controls'>
+                            <input class='form-control' id="validation_larghezza" type='text' name="larghezza" value="{$list.larghezza}" /> 
+                        </div>	
+                    </div>
+                    <div class='form-group'>
+                        <label class='col-md-3 control-label' for='validation_weavemode'>编织方式:</label>
+                        <div class='col-md-5 controls'>
+                            <input class='form-control' id="validation_weavemode" type='text' name="weavemode" value="{$list.weavemode}" /> 
+                        </div>	
+                    </div>
+                    <div class='form-group'>
+                        <label class='col-md-3 control-label' for='validation_is_tuijian'>是否推荐:</label>
+                        <div class='col-md-5'>
+                            <select class='form-control' id='validation_is_tuijian' name="is_tuijian" >	
+                                <option value="0" {eq name="list.is_tuijian" value="0"}selected{/eq}>否</option>								
+                                <option value="1" {eq name="list.is_tuijian" value="1"}selected{/eq}>是</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class='form-group'>
+                        <label class='col-md-3 control-label' for='validation_gender'>适用性别:</label>
+                        <div class='col-md-5'>
+                            <select class='form-control' id='validation_gender' name="gender" >	
+                                <option value="0" {eq name="list.gender" value="0"}selected{/eq}>通用</option>								
+                                <option value="1" {eq name="list.gender" value="1"}selected{/eq}>男</option>
+                                <option value="2" {eq name="list.gender" value="2"}selected{/eq}>女</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class='form-group'>
+                        <label class='col-md-3 control-label' >发布日期:</label>
+                        <div class='col-md-5'>
+                            <input class='form-control' disabled  type='text' value="{$list.release_season}">
+                        </div>
+                    </div>
+                    <div class='form-group'>
+                        <label class='col-md-3 control-label' for='validation_apply_season'>适用季节:</label>
+                        <div class='col-md-5'>
+                            <select class='form-control' id='validation_apply_season' name="apply_season" >	
+                                <option value="1" {eq name="list.apply_season" value="1"}selected{/eq}>春/秋</option>								
+                                <option value="2" {eq name="list.apply_season" value="2"}selected{/eq}>夏</option>
+                                <option value="3" {eq name="list.apply_season" value="3"}selected{/eq}>冬</option>
+                                <option value="4" {eq name="list.apply_season" value="4"}selected{/eq}>全年</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class='form-actions' style='margin-bottom:0'>
+                        <div class='row'>
+                            <div class='col-sm-9 col-sm-offset-3'>
+                                <button class='btn btn-primary' type='submit'>
+                                    提交
+                                </button>
+                                <a class='btn' style="margin-left:20px;" onclick="history.go(-1)">返回</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>                  

@@ -1,0 +1,69 @@
+<div class='row'>
+    <div class='col-sm-12'>
+        <div class='box' >
+            <div class='box-header blue-background' style='margin-top:10px;'>
+                <div class='title'> 成员编辑</div>
+
+                <div class='actions'>
+                    <button class="btn btn-sm btn-primary "  onclick="javascript:window.location.href = '__URL__/index?page={$Think.get.page}'">
+                        返回列表
+                        <i class="icon-reply icon-only"></i>
+                    </button>
+                    <a class="btn box-remove btn-xs btn-link" href="#"><i class='fa fa-times'></i>
+                    </a>
+                    <a class="btn box-collapse btn-xs btn-link" href="#"><i></i>
+                    </a>
+                </div>
+            </div>
+            <div class='box-content'>
+                <form class='form form-horizontal validate-form' method="post" enctype="multipart/form-data" action="{:url('edit')}" >
+                    {:token()}
+                    <input type="hidden" id="page" name="page" value="{$Think.get.page}" />
+                    <div class='form-group'>
+                        <label class='col-md-2 control-label'>公司名称:</label>
+                        <div class='col-md-5 controls'>
+                            <input class='form-control' disabled  placeholder='公司名称' type='text' value="{$list.name}" />
+                        </div>
+                    </div> 
+                    <div class='form-group'>
+                        <label class='col-md-2 control-label' for='validation_linkman'>联&nbsp;系&nbsp;&nbsp;人:</label>
+                        <div class='col-md-5 controls'>
+                            <input class='form-control' data-rule-required='true' id='validation_linkman' name='linkman' placeholder='联系人' type='text' value="{$list.linkman}"/>
+                        </div>
+                    </div>                    
+                    <div class='form-group'>
+                        <label class='col-md-2 control-label' for='validation_phone'>手机号码:</label>
+                        <div class='col-md-5 controls'>
+                            <input class='form-control' data-rule-required='true' data-rule-isMobile="true" id='validation_phone' name='phone'
+                                   placeholder='电话号码' type='text' value="{$list.phone}"/>
+                        </div>
+                    </div>                    
+                    <div class='form-group'>
+                        <label class='col-md-2 control-label' for='validation_email'>公司邮箱:</label>
+                        <div class='col-md-5 controls'>
+                            <input id='validation_email' class='form-control' type="text" name="email" placeholder='邮箱'
+                                   data-rule-email='true' value="{$list.email}"/>
+                        </div>
+                    </div>
+                    <div class='form-group'>
+                        <label class='col-md-2 control-label' for='validation_address'>公司地址:</label>
+                        <div class='col-md-5 controls'>
+                            <input id='validation_address' class='form-control' type="text" name="address" placeholder='请填写地址信息'
+                                   data-rule-minlength='6' value="{$list.address}"/>
+                        </div>
+                    </div>		
+                    <div class='form-actions' style='margin-bottom:0'>
+                        <div class='row'>
+                            <div class='col-sm-9 col-sm-offset-2'>
+                                <button class='btn btn-primary' type='submit'>
+                                    提交
+                                </button>
+                                <a class='btn' style="margin-left:20px;" onclick="history.go(-1)">返回</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>                  

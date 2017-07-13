@@ -1,0 +1,30 @@
+<div class='modal-header'>
+    <button aria-hidden='true' class='close' data-dismiss='modal' type='button'>×</button>
+    <h4 class='modal-title' id='myModalLabel'>填写物流单号</h4>
+</div>
+<div class='modal-body'>        
+    <form id="fahuo" action="{:Url('writeWuLiu',['page'=>$Think.get.page])}" method="post" class="form validate-form"  accept-charset="UTF-8">
+        <input type="hidden" name="id" value="{$wid}" />
+        <div class='form-group'>
+            <label class='control-label' for='validation_wuliu'>物流单号：</label>
+            <div class='controls'>
+                <input class='form-control' id='validation_wuliu'  data-rule-required='true' data-rule-number='true'  name='wuliu' placeholder='请填写物流单号' type='text' value="{$wid}"/>
+            </div>
+        </div>
+        <div class='modal-footer'>
+            <button class='btn btn-default' data-dismiss='modal' type='button'>取消</button>
+            <button class='btn btn-success' type='submit'>确认</button>
+        </div>
+    </form>
+
+</div>
+<script type="text/javascript">
+    var validator = $('#fahuo').validate();
+</script>
+<script type="text/javascript">
+    $(function () {
+        $('#fahuomodal').on('hidden.bs.modal', function () {
+            $(this).removeData("bs.modal");
+        })
+    });
+</script>

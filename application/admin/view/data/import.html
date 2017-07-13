@@ -1,0 +1,87 @@
+<div class='row'>
+    <div class='col-sm-12'>  
+
+        <div class='box bordered-box orange-border' style='margin-top:10px;'>
+            <div class='box-header orange-background'>
+                <div class='title'>数据库还原</div>
+                <div class='actions'>
+                    <a class="btn box-remove btn-xs btn-link" href="#"><i class='fa fa-times'></i>
+                    </a>
+                    <a class="btn box-collapse btn-xs btn-link" href="#"><i></i>
+                    </a>
+                </div>
+            </div>
+            <div class='box'>
+                <div class='box-content'>                    
+                    <div class="pull-left">
+                        <a class='btn btn-info' onclick="history.go(0);" style='margin-bottom:5px'>
+
+                            <i class='fa fa-refresh fa-spin'></i> 刷新
+                        </a>
+                    
+                    </div>
+                    <div class="pull-right"></div>
+                    <div class="clearfix"></div>
+
+                </div>
+            </div>            
+            <div class='box-content box-no-padding'>
+                <form id="export-form" method="post" action="{:url('export')}">
+                    <div class='responsive-table'>
+                        <div class='scrollable-area'>
+
+                            <table class='data-table table table-bordered table-striped' style='margin-bottom:0;'>
+                                <thead>
+                                    <tr>	
+                                        <th class="text-center">备份名称</th>
+                                        <th class="text-center">卷数</th> 
+                                        <th class="text-center">压缩</th>                                    
+                                        <th class="text-center">数据大小</th>
+                                        <th class="text-center">备份时间</th>
+                                        <th class="text-center" width="200">状态</th>
+                                        <th class="text-center">操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {notempty name="data"}                    
+                                    {volist name="data" id="vo"}
+                                    <tr>
+                                        <td class="text-center">{$vo.time|date='Ymd-His',###}</td>
+                                        <td class="text-center">{$vo.part}</td>                                    
+                                        <td class="text-center">{$vo.compress}</td>
+                                        <td class="text-center">{$vo.size|format_bytes}</td>
+                                        <td class="text-center">{$key}</td>
+                                        <td class="text-center" width="200">-</td>
+                                        <td class="text-center">
+
+                                            <a class="db-import" href="{:url('revert',['time'=>$vo['time']])}" title="还原">
+
+                                                <span class="btn btn-xs btn-warning">
+                                                    <i class="ace-icon fa fa-recycle "> 还原</i>
+                                                </span>
+                                            </a>
+
+
+                                            <a href="{:url('del',['time'=>$vo['time']])}" >
+                                                <span class="btn btn-xs btn-info">
+                                                    <i class="ace-icon fa fa-trash-o"> 删除</i>
+                                                </span>
+                                            </a>
+
+
+                                        </td>
+                                    </tr>
+                                    {/volist}
+                                    {else /}
+                                <td colspan="7" class="text-center"> 暂无备份数据 !</td>
+                                {/notempty}
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div> 
+    </div>
+</div>

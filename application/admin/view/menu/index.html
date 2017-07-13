@@ -1,0 +1,117 @@
+<div class='row'>
+    <div class='col-sm-12'>  
+
+        <div class='box bordered-box orange-border' style='margin-top:10px;'>
+            <div class='box-header orange-background'>
+                <div class='title'>菜单管理</div>
+                <div class='actions'>
+                    <a class="btn box-remove btn-xs btn-link" href="#"><i class='fa fa-times'></i>
+                    </a>
+                    <a class="btn box-collapse btn-xs btn-link" href="#"><i></i>
+                    </a>
+                </div>
+            </div>
+            <div class='box'>
+                <div class='box-content'>
+
+                    <div class="pull-left">
+                        {if condition="checkPath('Menu/menuAdd')"}
+                        <a href="{:url('menuAdd')}" class='btn btn-info' style='margin-bottom:5px'>
+                            新增
+                            <i class='fa fa-plus-square'></i>
+                        </a>
+                        {/if} 
+                        {if condition="checkPath('Menu/Delete')"}
+                        <a href="javascript:void(0);"  onclick="del()" class='btn btn-info' style='margin-bottom:5px'>
+                            删除
+                            <i class='fa fa-remove'></i>
+                        </a>
+                        {/if} 
+                    </div>
+                    <div class="pull-right">
+                        <form class='navbar-form navbar-left' method='post' action="{:Url('Menu/cache')}">
+                            <div class='form-group'>
+                                <button class="btn btn-success" type='submit'>清除菜单缓存</button>
+                            </div>
+                        </form>                       
+                    </div>
+                    <div class="clearfix"></div>
+
+                </div>
+            </div>
+            <div class='box-content box-no-padding'>
+                <div class='responsive-table'>
+                    <div class='scrollable-area'>
+
+                        <table id="checkList" class='data-table table table-bordered table-striped' style='margin-bottom:0;'>
+                            <thead>
+                                <tr>
+                                    <th class="text-center"><input type="checkbox" id="check" onclick="CheckAll('checkList')"></th>			
+                                    <th class="text-center">编号</th>
+                                    <th class="text-left" style="padding-left: 60px;">菜单名称</th>
+                                    <th class="text-center">应用</th>
+                                    <th class="text-center">控制器</th>
+                                    <th class="text-center">方法</th>
+                                    <th class="text-center">日志请求</th>
+                                    <th class="text-center">状态</th>
+                                    <th class="text-center">操作</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                {volist name='lists' id='vo'}
+                                <tr>
+                                    <td class="text-center"><input id="cb{$vo.id}" type="checkbox" name="key" value="{$vo.id}"></td>
+                                    <td class="text-center">{$vo.id}</td>
+                                    <td class="text-left" width="250" style="padding-left: 50px;">{:str_repeat("<span class='fa fa-arrow-right'></span>&nbsp;&nbsp;&nbsp;&nbsp;",$vo['level'])} {eq name="$vo['level']" value="0"}<span class="fa {$vo.icon} text-red">&nbsp;&nbsp;</span> 
+                                        <b class="text-red">{$vo.name}</b>{else/}<span class='fa fa-arrow-right'></span> {$vo.name}{/eq}</td>
+                                    <td class="text-center">{$vo.app}</td>
+                                    <td class="text-center">{$vo.model}</td>
+                                    <td class="text-center">{$vo.action}</td>
+                                    <td class="text-center">{$vo.request}</td>
+                                    <td class="text-center">
+                                        <a id="status{$vo['id']}"  title="是否启用" href="javascript:void(0);"  onclick="jingyong({$vo['id']})">
+                                            {$vo['status']|getStatus}
+                                        </a>
+                                    </td>
+
+                                    <td class="text-center">
+                                        {if condition="checkPath('Menu/menuAdd',['parent_id'=>$vo['id']])"}
+                                        <a href="{:Url('Menu/menuAdd',['parent_id'=>$vo['id']])}" title="添加子菜单">
+
+                                            <span class="btn btn-xs btn-warning">
+                                                <i class="ace-icon fa fa-plus-square "></i>
+                                            </span>
+                                        </a> 
+
+                                        {/if}
+                                        {if condition="checkPath('Menu/menuEdit',['id'=>$vo['id']])"}
+                                        <a href="{:Url('Menu/menuEdit',['id'=>$vo['id']])}" title="编辑">
+                                            <span class="btn btn-xs btn-info">
+                                                <i class="ace-icon fa fa-edit"></i>
+                                            </span>
+                                        </a>
+
+                                        {/if}
+                                        {if condition="checkPath('Menu/Delete',['id'=>$vo['id']])"}
+                                        <a href='javascript:void(0)' onclick="del({$vo.id})" >
+                                            <span class="btn btn-xs btn-danger">
+                                                <i class="ace-icon fa fa-trash-o"></i>
+                                            </span>
+                                        </a>
+                                        {/if}                                        
+                                    </td>
+
+                                </tr>
+                                {/volist}
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div> 
+    </div>
+</div>
