@@ -25,6 +25,7 @@ class Tech extends Safe {
         if ($tech) {
             $mianliaos = $tech->fssmaterial()
                     ->field('id,name,mno,thumb,url,price,zworganization,weight,element,larghezza,weavemode,apply_season,gender,release_season')
+                    ->order('id desc')
                     ->paginate();
             if ($mianliaos->total() > 0) {
                 header("Content-type: text/xml; charset=utf-8");
@@ -56,7 +57,7 @@ class Tech extends Safe {
     public function getReMlsById() {
         $tech = \app\api\model\Fssfabrictechnology::get(input('post.id'));
         if ($tech) {
-            $mianliao_ids = $tech->fssmaterial()->field('id')->paginate();
+            $mianliao_ids = $tech->fssmaterial()->field('id')->order('id desc')->paginate();
             if ($mianliao_ids->total() > 0) {
                 header("Content-type: text/xml; charset=utf-8");
                 $xmlstring = new \SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><xml />');

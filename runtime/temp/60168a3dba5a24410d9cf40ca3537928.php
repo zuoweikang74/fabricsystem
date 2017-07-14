@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:6:{s:91:"E:\soft\phpstudy\WWW\fuzhuanggaoding\public/../application/admin\view\fssmaterial\adds.html";i:1499131522;s:87:"E:\soft\phpstudy\WWW\fuzhuanggaoding\public/../application/admin\view\mianliaoadds.html";i:1499846840;s:86:"E:\soft\phpstudy\WWW\fuzhuanggaoding\public/../application/admin\view\public\meta.html";i:1499848040;s:88:"E:\soft\phpstudy\WWW\fuzhuanggaoding\public/../application/admin\view\public\header.html";i:1497597138;s:88:"E:\soft\phpstudy\WWW\fuzhuanggaoding\public/../application/admin\view\public\footer.html";i:1496625819;s:90:"E:\soft\phpstudy\WWW\fuzhuanggaoding\public/../application/admin\view\public\bottomjs.html";i:1499847919;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:6:{s:91:"E:\soft\phpstudy\WWW\fuzhuanggaoding\public/../application/admin\view\fssmaterial\adds.html";i:1499131522;s:87:"E:\soft\phpstudy\WWW\fuzhuanggaoding\public/../application/admin\view\mianliaoadds.html";i:1499846840;s:86:"E:\soft\phpstudy\WWW\fuzhuanggaoding\public/../application/admin\view\public\meta.html";i:1499850671;s:88:"E:\soft\phpstudy\WWW\fuzhuanggaoding\public/../application/admin\view\public\header.html";i:1497597138;s:88:"E:\soft\phpstudy\WWW\fuzhuanggaoding\public/../application/admin\view\public\footer.html";i:1496625819;s:90:"E:\soft\phpstudy\WWW\fuzhuanggaoding\public/../application/admin\view\public\bottomjs.html";i:1499850528;}*/ ?>
 <!DOCTYPE html>
 <html lang='en'>
     <head>
@@ -43,7 +43,8 @@
         filter:alpha(opacity=0);
         cursor:pointer;
     }
-    body .demo-class{width:180px;border:1px solid #D3D4D3;box-shadow:none}
+    body .demo-class{text-align: center;background-color: rgba(0,0,0,.6);color:white;border: none;box-shadow: none;border-radius: 2px;position: fixed;}
+    body .demo-class .layui-layer-content{padding: 12px;}
 </style> 
         <link href="/static/assets/stylesheets/plugins/fileinput/bootstrap-fileinput.css" rel="stylesheet" type="text/css" media="all" />
         <link href="/static/assets/stylesheets/plugins/fileupload/jquery.fileupload-ui.css" rel="stylesheet" type="text/css" media="all" />
@@ -476,7 +477,7 @@
 </script>
 <script>
     if ('<?php echo \think\Request::instance()->get('msg'); ?>') {
-        layer.msg('<?php echo \think\Request::instance()->get('msg'); ?>',{skin: 'demo-class'}, function () {
+        layer.msg('<?php echo \think\Request::instance()->get('msg'); ?>',{skin: 'demo-class',anim: 6}, function () {
         });
     }
 </script>

@@ -25,6 +25,7 @@ class Pattern extends Safe {
         if ($pattern) {
             $mianliaos = $pattern->fssmaterial()
                     ->field('id,name,mno,thumb,url,price,zworganization,weight,element,larghezza,weavemode,apply_season,gender,release_season')
+                    ->order('id desc')
                     ->paginate();
             if ($mianliaos->total() > 0) {
                 header("Content-type: text/xml; charset=utf-8");
@@ -56,7 +57,7 @@ class Pattern extends Safe {
     public function getReMlsById() {
         $pattern = \app\api\model\Fssfabricpattern::get(input('post.id'));
         if ($pattern) {
-            $mianliao_ids = $pattern->fssmaterial()->field('id')->paginate();
+            $mianliao_ids = $pattern->fssmaterial()->field('id')->order('id desc')->paginate();
             if ($mianliao_ids->total() > 0) {
                 header("Content-type: text/xml; charset=utf-8");
                 $xmlstring = new \SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><xml />');

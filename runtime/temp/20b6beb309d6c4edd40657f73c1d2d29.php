@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:6:{s:91:"E:\soft\phpstudy\WWW\fuzhuanggaoding\public/../application/index\view\fssmaterial\adds.html";i:1499679127;s:87:"E:\soft\phpstudy\WWW\fuzhuanggaoding\public/../application/index\view\mianliaoadds.html";i:1498730188;s:86:"E:\soft\phpstudy\WWW\fuzhuanggaoding\public/../application/index\view\public\meta.html";i:1499676682;s:88:"E:\soft\phpstudy\WWW\fuzhuanggaoding\public/../application/index\view\public\header.html";i:1498288382;s:88:"E:\soft\phpstudy\WWW\fuzhuanggaoding\public/../application/index\view\public\footer.html";i:1498193342;s:90:"E:\soft\phpstudy\WWW\fuzhuanggaoding\public/../application/index\view\public\bottomjs.html";i:1499676675;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:6:{s:91:"E:\soft\phpstudy\WWW\fuzhuanggaoding\public/../application/index\view\fssmaterial\adds.html";i:1499679127;s:87:"E:\soft\phpstudy\WWW\fuzhuanggaoding\public/../application/index\view\mianliaoadds.html";i:1498730188;s:86:"E:\soft\phpstudy\WWW\fuzhuanggaoding\public/../application/index\view\public\meta.html";i:1499850727;s:88:"E:\soft\phpstudy\WWW\fuzhuanggaoding\public/../application/index\view\public\header.html";i:1499847316;s:88:"E:\soft\phpstudy\WWW\fuzhuanggaoding\public/../application/index\view\public\footer.html";i:1498193342;s:90:"E:\soft\phpstudy\WWW\fuzhuanggaoding\public/../application/index\view\public\bottomjs.html";i:1499850578;}*/ ?>
 <!DOCTYPE html>
 <html lang='en'>
     <head>
@@ -43,6 +43,8 @@
         filter:alpha(opacity=0);
         cursor:pointer;
     }
+    body .demo-class{text-align: center;background-color: rgba(0,0,0,.6);color:white;border: none;box-shadow: none;border-radius: 2px;position: fixed;}
+    body .demo-class .layui-layer-content{padding: 12px;}
 </style> 
         <link href="/static/assets/stylesheets/plugins/fileinput/bootstrap-fileinput.css" rel="stylesheet" type="text/css" media="all" />
         <link href="/static/assets/stylesheets/plugins/fileupload/jquery.fileupload-ui.css" rel="stylesheet" type="text/css" media="all" />
@@ -199,19 +201,6 @@
 </nav>
 <section id='content'>
     <div class='container'>
-        <div class='row'>
-            <div class='col-sm-12'>
-                <?php if(\think\Request::instance()->get('msg') != ''): ?>
-                <div  id="nonealert" class='alert alert-info alert-dismissable'>
-                    <a class="close" data-dismiss="alert" href="#">&times;</a>
-                    <i class='fa fa-info-circle'></i><?php echo \think\Request::instance()->get('msg'); ?>
-                </div>
-                <?php endif; ?>
-                <div id="result" class='alert alert-info alert-dismissable' style="display:none;">
-
-                </div>      
-            </div>
-        </div>
         <div class='row'>
     <div class='col-sm-12'>
         <div class='box' style='margin-top: 20px;'>
@@ -487,8 +476,9 @@
 <!-- / jquery [required] -->
 <script src="/static/assets/javascripts/jquery/jquery.min.js" type="text/javascript"></script>
 <script src="/static/Js/common.js" type="text/javascript"></script>
+<script src="/static/layer/layer.js"></script>
 <script src="/static/assets/javascripts/jquery/jquery.mobile.custom.min.js" type="text/javascript"></script>
-<script src="/static/assets/javascripts/jquery/jquery-ui.min.js"	type="text/javascript"></script>
+<script src="/static/assets/javascripts/jquery/jquery-ui.min.js" type="text/javascript"></script>
 <script src="/static/assets/javascripts/jquery/jquery.ui.touch-punch.min.js" type="text/javascript"></script>
 <script src="/static/assets/javascripts/bootstrap/bootstrap.js" type="text/javascript"></script>
 <script src="/static/assets/javascripts/plugins/modernizr/modernizr.min.js" type="text/javascript"></script>
@@ -506,12 +496,11 @@
     var URL = '__URL__';
 </script>
 <script>
-    function  nonealert() {
-        $("#nonealert").hide();
+    if ('<?php echo \think\Request::instance()->get('msg'); ?>') {
+        layer.msg('<?php echo \think\Request::instance()->get('msg'); ?>',{skin: 'demo-class',anim: 6}, function () {
+        });
     }
-    setTimeout("nonealert()", 2000);
 </script>
-
 <script>
     $(function () {
         $("#pstimg").change(function () {

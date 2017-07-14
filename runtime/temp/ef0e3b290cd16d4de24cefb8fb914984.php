@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:6:{s:92:"E:\soft\phpstudy\WWW\fuzhuanggaoding\public/../application/index\view\fssmaterial\index.html";i:1499823596;s:81:"E:\soft\phpstudy\WWW\fuzhuanggaoding\public/../application/index\view\layout.html";i:1499823354;s:86:"E:\soft\phpstudy\WWW\fuzhuanggaoding\public/../application/index\view\public\meta.html";i:1499676682;s:88:"E:\soft\phpstudy\WWW\fuzhuanggaoding\public/../application/index\view\public\header.html";i:1499847316;s:88:"E:\soft\phpstudy\WWW\fuzhuanggaoding\public/../application/index\view\public\footer.html";i:1498193342;s:90:"E:\soft\phpstudy\WWW\fuzhuanggaoding\public/../application/index\view\public\bottomjs.html";i:1499846685;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:6:{s:92:"E:\soft\phpstudy\WWW\fuzhuanggaoding\public/../application/index\view\fssmaterial\index.html";i:1499823596;s:81:"E:\soft\phpstudy\WWW\fuzhuanggaoding\public/../application/index\view\layout.html";i:1499848766;s:86:"E:\soft\phpstudy\WWW\fuzhuanggaoding\public/../application/index\view\public\meta.html";i:1499850727;s:88:"E:\soft\phpstudy\WWW\fuzhuanggaoding\public/../application/index\view\public\header.html";i:1499847316;s:88:"E:\soft\phpstudy\WWW\fuzhuanggaoding\public/../application/index\view\public\footer.html";i:1498193342;s:90:"E:\soft\phpstudy\WWW\fuzhuanggaoding\public/../application/index\view\public\bottomjs.html";i:1499850578;}*/ ?>
 <!DOCTYPE html>
 <html lang='en'>
     <head>
@@ -43,6 +43,8 @@
         filter:alpha(opacity=0);
         cursor:pointer;
     }
+    body .demo-class{text-align: center;background-color: rgba(0,0,0,.6);color:white;border: none;box-shadow: none;border-radius: 2px;position: fixed;}
+    body .demo-class .layui-layer-content{padding: 12px;}
 </style> 
     </head>
     <body class='contrast-red'>
@@ -347,7 +349,7 @@
 <script src="/static/Js/common.js" type="text/javascript"></script>
 <script src="/static/layer/layer.js"></script>
 <script src="/static/assets/javascripts/jquery/jquery.mobile.custom.min.js" type="text/javascript"></script>
-<script src="/static/assets/javascripts/jquery/jquery-ui.min.js"	type="text/javascript"></script>
+<script src="/static/assets/javascripts/jquery/jquery-ui.min.js" type="text/javascript"></script>
 <script src="/static/assets/javascripts/jquery/jquery.ui.touch-punch.min.js" type="text/javascript"></script>
 <script src="/static/assets/javascripts/bootstrap/bootstrap.js" type="text/javascript"></script>
 <script src="/static/assets/javascripts/plugins/modernizr/modernizr.min.js" type="text/javascript"></script>
@@ -366,7 +368,7 @@
 </script>
 <script>
     if ('<?php echo \think\Request::instance()->get('msg'); ?>') {
-        layer.msg('<?php echo \think\Request::instance()->get('msg'); ?>', function () {
+        layer.msg('<?php echo \think\Request::instance()->get('msg'); ?>',{skin: 'demo-class',anim: 6}, function () {
         });
     }
 </script>
@@ -403,8 +405,6 @@
 </script>
 <script type="text/javascript">
     $(function () {
-
-
         $("#pstimg").on('change', function () {
             $("#imgform").submit();
         })
@@ -412,10 +412,10 @@
 </script> 
 <script>
 //调用示例
-layer.photos({
-  photos: '.layer-photos-demo'
-  ,anim: 2 //0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）
-}); 
+    layer.photos({
+        photos: '.layer-photos-demo'
+        , anim: 2 //0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）
+    });
 </script>
 </body>
 </html>

@@ -298,7 +298,7 @@ function doDelete(data, status) {
                 dataType: "JSON",
                 success: function (data) {
                     $("#status" + id + " img").attr("src", data.status);
-                    layer.msg(data.msg,{time: 100000}, function () {
+                    layer.msg(data.msg, function () {
                         //关闭后的操作
                     });
                 }

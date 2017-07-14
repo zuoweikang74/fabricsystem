@@ -21,7 +21,7 @@ class Type extends Safe {
 
     //根据类型ID获取面料信息	
     public function getMlsById() {
-        $mianliaos = model('Fssmaterial')->where('status', '1')->where('type_id', input('post.id'))->paginate();
+        $mianliaos = model('Fssmaterial')->where('status', '1')->where('type_id', input('post.id'))->order('id desc')->paginate();
         if ($mianliaos->total() > 0) {
             header("Content-type: text/xml; charset=utf-8");
             $xmlstring = new \SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><xml />');
@@ -49,7 +49,7 @@ class Type extends Safe {
 
     //根据类型ID获取面料关联信息
     public function getReMlsById() {
-        $mianliaos = model('Fssmaterial')->where('status', '1')->where('type_id', input('post.id'))->paginate();
+        $mianliaos = model('Fssmaterial')->where('status', '1')->where('type_id', input('post.id'))->order('id desc')->paginate();
         if ($mianliaos->total() > 0) {
             header("Content-type: text/xml; charset=utf-8");
             $xmlstring = new \SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><xml />');

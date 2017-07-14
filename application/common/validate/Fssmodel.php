@@ -19,13 +19,12 @@ class Fssmodel extends Validate {
         'name|模型名称' => 'require|token',
         'price|面料价格' => 'require|float',
         'purpose_id|适用类型' => 'require|number',
-        'iscanmatch|适用类型' => 'require|number',
-        'matchpart|适用类型' => 'require|number',
-        'hasani|适用类型' => 'require|number',
+        'iscanmatch|是否可以搭配' => 'require|number',
+        'isstatic|是否静态' => 'require|number',
+        'hasani|是否有动作可以走秀' => 'require|number',
     );
     //验证场景
     protected $scene = array(
-
     );
 
     /*

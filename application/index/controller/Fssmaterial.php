@@ -236,8 +236,8 @@ class Fssmaterial extends Common {
      */
 
     public function adds() {
-//        $amount = db('fsscompany')->where('id', session('company_id'))->value('mianliao_num');
-//        $this->assign('amount', $amount);
+        $amount = db('fsscompany')->where('id', session('company_id'))->value('mianliao_num');
+        $this->assign('amount', $amount);
         $this->view->engine->layout('mianliaoadds');
         return $this->fetch();
     }

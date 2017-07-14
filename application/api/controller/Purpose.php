@@ -25,6 +25,7 @@ class Purpose extends Safe {
         if ($purpose) {
             $mianliaos = $purpose->fssmaterial()
                     ->field('id,name,mno,thumb,url,price,zworganization,weight,element,larghezza,weavemode,apply_season,gender,release_season')
+                    ->order('id desc')
                     ->paginate();
             if ($mianliaos->total() > 0) {
                 header("Content-type: text/xml; charset=utf-8");
@@ -59,7 +60,7 @@ class Purpose extends Safe {
             $map['type_id'] = input('post.type'); //模型类型		
         }
         $map['purpose_id'] = input('post.id');
-        $models = model('Fssmodel')->where('status', '1')->where($map)->paginate();
+        $models = model('Fssmodel')->where('status', '1')->where($map)->order('id desc')->paginate();
         if ($models->total() > 0) {
             header("Content-type: text/xml; charset=utf-8");
             $xmlstring = new \SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><xml />');
@@ -89,7 +90,7 @@ class Purpose extends Safe {
     public function getReMlsById() {
         $purpose = \app\api\model\Fssfabricpurpose::get(input('post.id'));
         if ($purpose) {
-            $mianliao_ids = $purpose->fssmaterial()->field('id')->paginate();
+            $mianliao_ids = $purpose->fssmaterial()->field('id')->order('id desc')->paginate();
             if ($mianliao_ids->total() > 0) {
                 header("Content-type: text/xml; charset=utf-8");
                 $xmlstring = new \SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><xml />');

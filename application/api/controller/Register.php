@@ -48,7 +48,7 @@ class Register {
         $verfiyCode = input('post.yzm');
         $onlyCode = input('post.wym');
         if (empty($phoneNum) || empty($verfiyCode) || empty($onlyCode)) {
-            exit('-2'); //验证码或手机号错误
+            exit('-2'); //确少参数
         }
         $tmp = Db::table('verfiycodetmp')->where('phone', $phoneNum)->find();
         if ($tmp) {
@@ -93,7 +93,7 @@ class Register {
     }
 
 //记录登录信息
-    public function loginInfo($user_id) {
+    private function loginInfo($user_id) {
         $time = time();
         $logindata['last_login_time'] = $time;
         $logindata['login_count'] = array('exp', 'login_count+1');
