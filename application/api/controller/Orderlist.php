@@ -66,10 +66,10 @@ class Orderlist extends Safe {
 
                 echo 1; //支付成功
             } else {
-                echo 0; //服务器错误
+                exit('0'); //服务器错误
             }
         } else {
-            echo '-3'; //余额不足请充值
+            exit('-3'); //余额不足请充值
         }
     }
 
@@ -77,9 +77,7 @@ class Orderlist extends Safe {
     public function payResult($order_id, $uid) {
         $res = db('orderlist')->where('id', $order_id)->setField('status', '2');
         if (false !== $res) {
-            $orderdata = db('orderdata')->where('id', $order_id)->select();
-            $mxorder = M('fssModelorder');
-            $fssmodel = M('fssmodel');
+            $orderdata = db('orderdata')->where('order_id', $order_id)->select();
             foreach ($orderdata as $key => $value) {
                 $mxdata[$key]['customer_id'] = $uid;
                 $mxdata[$key]['model_id'] = $value['model_id'];
@@ -87,7 +85,7 @@ class Orderlist extends Safe {
                 if ($mxres[$key] === false) {
                     return false;
                 }
-                $fssmodel->setInc('sellcount', 'id=' . $value['model_id']); // 模型购买次数增加
+                db('fssmodel')->where('id', $value['model_id'])->setInc('sellcount');
             }
             return true;
         } else {

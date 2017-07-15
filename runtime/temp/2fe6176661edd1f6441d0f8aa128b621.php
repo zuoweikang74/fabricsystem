@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:6:{s:91:"E:\soft\phpstudy\WWW\fuzhuanggaoding\public/../application/admin\view\fsscustomer\edit.html";i:1499066783;s:81:"E:\soft\phpstudy\WWW\fuzhuanggaoding\public/../application/admin\view\layout.html";i:1498017488;s:86:"E:\soft\phpstudy\WWW\fuzhuanggaoding\public/../application/admin\view\public\meta.html";i:1499492496;s:88:"E:\soft\phpstudy\WWW\fuzhuanggaoding\public/../application/admin\view\public\header.html";i:1497597138;s:88:"E:\soft\phpstudy\WWW\fuzhuanggaoding\public/../application/admin\view\public\footer.html";i:1496625819;s:90:"E:\soft\phpstudy\WWW\fuzhuanggaoding\public/../application/admin\view\public\bottomjs.html";i:1499504502;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:6:{s:91:"E:\soft\phpstudy\WWW\fuzhuanggaoding\public/../application/admin\view\fsscustomer\edit.html";i:1499066783;s:81:"E:\soft\phpstudy\WWW\fuzhuanggaoding\public/../application/admin\view\layout.html";i:1499844431;s:86:"E:\soft\phpstudy\WWW\fuzhuanggaoding\public/../application/admin\view\public\meta.html";i:1499850671;s:88:"E:\soft\phpstudy\WWW\fuzhuanggaoding\public/../application/admin\view\public\header.html";i:1497597138;s:88:"E:\soft\phpstudy\WWW\fuzhuanggaoding\public/../application/admin\view\public\footer.html";i:1496625819;s:90:"E:\soft\phpstudy\WWW\fuzhuanggaoding\public/../application/admin\view\public\bottomjs.html";i:1499850528;}*/ ?>
 <!DOCTYPE html>
 <html lang='en'>
   <head>
@@ -30,8 +30,8 @@
         position:relative;
     }
     #loc_img{
-    	max-width:500px;
-    	max-height:300px;    	
+        max-width:500px;
+        max-height:300px;    	
     }
     .fileInput{
         position:absolute;
@@ -43,6 +43,8 @@
         filter:alpha(opacity=0);
         cursor:pointer;
     }
+    body .demo-class{text-align: center;background-color: rgba(0,0,0,.6);color:white;border: none;box-shadow: none;border-radius: 2px;position: fixed;}
+    body .demo-class .layui-layer-content{padding: 12px;}
 </style> 
   </head>
   <body class='contrast-red'>
@@ -176,19 +178,6 @@
       <section id='content'>
         <div class='container'>
             <div class='row'>
-	                <div class='col-sm-12'>
-                            <?php if(\think\Request::instance()->get('msg') != ''): ?>
-	                          <div  id="nonealert" class='alert alert-info alert-dismissable'>
-	                               <a class="close" data-dismiss="alert" href="#">&times;</a>
-	                                      <i class='fa fa-info-circle'></i><?php echo \think\Request::instance()->get('msg'); ?>
-	                           </div>
-                            <?php endif; ?>
-	                          <div id="result" class='alert alert-info alert-dismissable' style="display:none;">
-	                            
-	                           </div>      
-	                </div>
-              	</div>
-            <div class='row'>
     <div class='col-sm-12'>
         <div class='box' >
             <div class='box-header blue-background' style='margin-top:10px;'>
@@ -294,12 +283,13 @@
         </div>
     </div>
 </div>                  
-         <footer id='footer'><div class='footer-wrapper'><div class='row'><div class='col-sm-5 text col-sm-offset-1'>Copyright ® 2016 淮安市炫视互动软件科技有限公司</div><div class='col-sm-5 buttons'><a class="btn btn-link" href="http://xsshow.cn/">技术支持</a><a class="btn btn-link" href="http://xsshow.cn/">联系我们</a></div></div></div></footer>    
+         <footer id='footer'><div class='footer-wrapper'><div class='row'><div class='col-sm-5 text col-sm-offset-1'>Copyright ® 2016 淮安市炫视互动软件科技有限公司</div><div class='col-sm-5 buttons'><a class="btn btn-link" href="http://xsshow.cn/">技术支持</a><a class="btn btn-link" href="http://xsshow.cn/">联系我们</a></div></div></div></footer>
       </section>
     </div>
     <!-- / jquery [required] -->
     <script src="/static/assets/javascripts/jquery/jquery.min.js" type="text/javascript"></script>
 <script src="/static/Js/common.js" type="text/javascript"></script>
+<script src="/static/layer/layer.js"></script>
 <script src="/static/assets/javascripts/jquery/jquery.mobile.custom.min.js" type="text/javascript"></script>
 <script src="/static/assets/javascripts/jquery/jquery-ui.min.js" type="text/javascript"></script>
 <script src="/static/assets/javascripts/jquery/jquery.ui.touch-punch.min.js" type="text/javascript"></script>
@@ -319,12 +309,11 @@
     var URL = '__URL__';
 </script>
 <script>
-    function  nonealert() {
-        $("#nonealert").hide();
+    if ('<?php echo \think\Request::instance()->get('msg'); ?>') {
+        layer.msg('<?php echo \think\Request::instance()->get('msg'); ?>',{skin: 'demo-class',anim: 6}, function () {
+        });
     }
-    setTimeout("nonealert()", 2000);
 </script>
-
 <script>
     $(function () {
         $("#pstimg").change(function () {
