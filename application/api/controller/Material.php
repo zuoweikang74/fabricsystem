@@ -8,11 +8,10 @@ class Material extends Safe {
 
     //获取推荐面料
     public function getTjMl() {
-        $mianliaos = model('Fssmaterial')->where('is_tuijian', '1')->order('id desc')->paginate();
-        if ($mianliaos->total() > 0) {
+        $mianliaos = model('Fssmaterial')->where('is_tuijian', '1')->order('id desc')->limit(6)->select();
+        if ($mianliaos) {
             header("Content-type: text/xml; charset=utf-8");
             $xmlstring = new \SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><xml />');
-            $xmlstring->addAttribute('ys', $mianliaos->lastPage()); //分页数量
             foreach ($mianliaos as $value) {
                 $xmlapplist = $xmlstring->addchild('mianliao');
                 $xmlapplist->addAttribute('id', $value['id']);
@@ -30,7 +29,7 @@ class Material extends Safe {
                 $xmlapplist->addAttribute('sex', $value['gender']); //编织方式
                 $xmlapplist->addAttribute('fabu', $value['release_season']); //发布时间
             }
-            exit($xmlstring->asxml());
+            exit ($xmlstring->asxml());
         }
     }
 
@@ -288,7 +287,7 @@ class Material extends Safe {
 
     //获取自已待修改信息面料
     public function getNokMianliao() {
-        $mianliaos = model('Fssmaterial')->useGlobalScope(false)->where(['user_id' => input('post.uid'), 'status' => '-3'])->order('id desc')->paginate();
+        $mianliaos = model('Fssmaterial')->useGlobalScope(false)->where(['user_id' => input('post.uid'), 'status' => '-2,-3'])->order('id desc')->paginate();
         if ($mianliaos->total() > 0) {
             header("Content-type: text/xml; charset=utf-8");
             $xmlstring = new \SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><xml />');

@@ -15,9 +15,9 @@ return [
     // | 应用设置
     // +----------------------------------------------------------------------
     // 应用调试模式
-    'app_debug' => true,
+    'app_debug' => false,
     // 应用Trace
-    'app_trace' => true,
+    'app_trace' => false,
     // 应用模式状态
     'app_status' => '',
     // 是否支持多模块
@@ -31,7 +31,7 @@ return [
     // 默认输出类型
     'default_return_type' => 'html',
     // 默认AJAX 数据返回格式,可选json xml ...
-    'default_ajax_return' => 'json',
+    'default_ajax_return' => 'xml',
     // 默认JSONP格式返回的处理方法
     'default_jsonp_handler' => 'jsonpReturn',
     // 默认JSONP处理方法
@@ -158,6 +158,11 @@ return [
     ],
     // +----------------------------------------------------------------------
     // | Trace设置 开启 app_trace 后 有效
+    'trace' => [
+        'type' => 'socket',
+        // socket服务器
+        'host' => 'slog.thinkphp.cn',
+    ],
     // +----------------------------------------------------------------------
     'trace' => [
         // 内置Html Console 支持扩展
